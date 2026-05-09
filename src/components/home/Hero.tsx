@@ -112,9 +112,12 @@ className="mb-4 w-full text-right text-xs font-bold text-[#8FE3B0] md:mb-6 md:te
             تبرع الآن
           </button>
 
-          <button className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-xs font-bold text-white backdrop-blur-md transition hover:bg-white/20 md:px-8 md:py-4 md:text-sm">
-            استكشف الحالات
-          </button>
+         <a
+  href="#urgent-cases"
+  className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-xs font-bold text-white backdrop-blur-md transition hover:bg-white/20 md:px-8 md:py-4 md:text-sm"
+>
+  الحالات الطارئة
+</a>
         </motion.div>
 
        <motion.div
