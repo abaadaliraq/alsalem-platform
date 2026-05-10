@@ -57,11 +57,11 @@ export default function CategoryHero({ category }: CategoryHeroProps) {
           className="mt-9 flex flex-wrap gap-3"
         >
           <a
-            href="#category-cases"
-            className="rounded-full bg-[#22a66b] px-7 py-4 text-sm font-black text-white transition hover:bg-[#178755]"
-          >
-            استعراض الحالات
-          </a>
+  href={`/donate?target=${encodeURIComponent(category.title)}`}
+  className="rounded-full bg-[#22a66b] px-7 py-4 text-sm font-black text-white transition hover:bg-[#178755]"
+>
+  تبرع الآن
+</a>
 
           <a
             href="#suggest-case"

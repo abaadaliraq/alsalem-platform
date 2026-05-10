@@ -35,7 +35,7 @@ export default function Navbar() {
           >
             <div className="relative h-[54px] w-[54px] shrink-0 md:h-[94px] md:w-[94px]">
               <Image
-                src="/logo.png"
+                src="/logo-alsaleem.png"
                 alt="Al Salem Logo"
                 fill
                 sizes="100px"
@@ -45,13 +45,7 @@ export default function Navbar() {
             </div>
 
             <div className="flex flex-col leading-none">
-              <span className="text-[18px] font-black tracking-tight text-white md:text-[23px]">
-                منصة السالم
-              </span>
-
-              <span className="mt-1 text-[8px] font-semibold tracking-[1.8px] text-white/40 md:mt-2 md:text-[10px] md:tracking-[2.2px]">
-                AL SALEM PLATFORM
-              </span>
+          
             </div>
           </Link>
 
@@ -114,7 +108,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1.5">
             <div className="relative h-16 w-16 shrink-0">
               <Image
-                src="/logo.png"
+                src="/logo-alsaleem.png"
                 alt="Logo"
                 fill
                 sizes="64px"
@@ -123,13 +117,7 @@ export default function Navbar() {
             </div>
 
             <div className="-mr-2 flex flex-col items-start leading-none">
-              <span className="text-lg font-black text-white">
-                منصة السالم
-              </span>
-
-              <span className="mt-1 text-[8px] tracking-[2px] text-white/35">
-                AL SALEM PLATFORM
-              </span>
+             
             </div>
           </div>
 

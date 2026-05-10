@@ -1,217 +1,165 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ShieldCheck, ReceiptText, TrendingUp, ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import {
+  BadgeCheck,
+  HeartHandshake,
+  ReceiptText,
+  ShieldCheck,
+} from "lucide-react";
 
-const metrics = [
+const features = [
   {
-    value: 92,
-    suffix: "%",
-    title: "92%",
-    label: "من التبرعات تصل مباشرة للحالات الإنسانية",
-    icon: ShieldCheck,
-  },
-  {
-    value: 48,
-    suffix: "",
-    title: "48 حالة",
-    label: "اكتمل دعمها بالكامل عبر مساهمات المتبرعين",
     icon: ReceiptText,
+    title: "توثيق كل تبرع",
+    desc: "كل عملية تبرع يتم تسجيلها ومراجعتها لضمان الشفافية وبناء الثقة بين المتبرع والحالة الإنسانية.",
   },
   {
-    value: 7,
-    suffix: "",
-    title: "7 تحديثات",
-    label: "موثقة ومنشورة خلال هذا الشهر",
-    icon: TrendingUp,
+    icon: HeartHandshake,
+    title: "ربط التبرع بالأثر",
+    desc: "لا نعرض أرقاماً فقط، بل نربط التبرعات بحالات حقيقية ومشاريع إنسانية داخل العراق.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "حفظ كرامة المحتاج",
+    desc: "نؤمن أن العمل الإنساني يجب أن يحفظ خصوصية الإنسان وكرامته بعيداً عن الاستغلال العاطفي.",
   },
 ];
 
 const updates = [
-  "تبرعك ساهم في تسديد جزء من علاج حالة طبية في بغداد.",
-  "تم إيصال دعم غذائي لعائلة متعففة بفضل مساهمات المتبرعين.",
-  "اكتملت حالة تعليمية وتم إغلاقها بعد وصول المبلغ المطلوب.",
+  "تم توثيق تبرع جديد لدعم علاج حالة إنسانية.",
+  "تم استلام إثبات تبرع ضمن حملة التعليم.",
+  "تم إرسال شهادة تبرع باسم شخص عزيز.",
 ];
-function AnimatedCounter({
-  value,
-  suffix,
-}: {
-  value: number;
-  suffix?: string;
-}) {
-  const [count, setCount] = useState(0);
-
-  return (
-    <motion.span
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      onViewportEnter={() => {
-        let frame = 0;
-        const totalFrames = 70;
-
-        const timer = setInterval(() => {
-          frame++;
-          const progress = frame / totalFrames;
-          const eased = 1 - Math.pow(1 - progress, 3);
-
-          setCount(Math.floor(value * eased));
-
-          if (frame >= totalFrames) {
-            clearInterval(timer);
-            setCount(value);
-          }
-        }, 18);
-      }}
-    >
-      {count}
-      {suffix}
-    </motion.span>
-  );
-}
 
 export default function TransparencySection() {
   return (
     <section
       dir="rtl"
-      className="relative overflow-hidden bg-[#06140E] px-5 py-20 text-white md:px-10 md:py-28"
+      className="relative overflow-hidden bg-[#041B13] px-4 py-16 text-white md:px-10 md:py-20"
     >
-      <div className="absolute left-[-120px] top-[-120px] h-[520px] w-[520px] rounded-full bg-[#1F7A4D]/20 blur-[150px]" />
-      <div className="absolute bottom-[-160px] right-[-140px] h-[520px] w-[520px] rounded-full bg-[#8FE3B0]/10 blur-[160px]" />
+      <div className="relative h-full w-full"></div>
+      <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:42px_42px]" />
+      <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-[#00FF99]/10 blur-[120px]" />
+      <div className="absolute bottom-0 left-0 h-[500px] w-[500px] rounded-full bg-[#C7FF32]/10 blur-[120px]" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 md:grid-cols-[0.95fr_1.05fr] md:items-center">
-        {/* IMAGE */}
+      <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+ {/* IMAGE SIDE */}
+<motion.div
+  initial={{ opacity: 0, x: 40 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.7 }}
+ className="relative flex h-full overflow-hidden rounded-[36px] border border-white/10 bg-[#08251B] p-4"
+>
+  <img
+    src="https://images.unsplash.com/photo-1518398046578-8cca57782e17?q=80&w=1400&auto=format&fit=crop"
+    alt="charity"
+   className="h-full min-h-[360px] w-full rounded-[28px] object-cover md:min-h-[500px]"
+  />
+
+  <div className="absolute inset-0 bg-gradient-to-t from-[#041B13]/80 via-transparent to-transparent" />
+
+  {/* LOGO */}
+  <div className="absolute top-6 right-6">
+    <img
+      src="/logo-alsaleem.png"
+      alt="logo"
+      className="h-12 w-auto object-contain opacity-95 md:h-16"
+    />
+  </div>
+
+  {/* MAIN CARD */}
+  <div className="absolute bottom-6 left-1/2 w-[85%] -translate-x-1/2 rounded-[24px] border border-white/10 bg-black/45 px-5 py-4 backdrop-blur-2xl">
+    <div className="flex items-center gap-4">
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C7FF32] text-[#041B13]">
+        <BadgeCheck className="h-6 w-6" />
+      </div>
+
+      <div>
+        <p className="text-2xl font-black text-white">+12,400</p>
+
+        <p className="text-xs leading-6 text-white/70">
+          تبرع تم توثيقه داخل المنصة
+        </p>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
+        {/* CONTENT SIDE */}
         <motion.div
-          initial={{ opacity: 0, x: -45 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
-          className="relative order-2 md:order-1"
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="flex flex-col justify-center"
         >
-          <div className="relative h-[420px] overflow-hidden rounded-[36px] border border-white/10 bg-white/5 md:h-[620px]">
-            <Image
-src="https://images.unsplash.com/photo-1524069290683-0457abfe42c3?q=80&w=1400&auto=format&fit=crop"
-              alt="Donation impact"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06140E] via-[#06140E]/25 to-transparent" />
-
-            <motion.div
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.25 }}
-              className="absolute bottom-6 right-6 left-6 rounded-[28px] border border-white/10 bg-black/35 p-5 backdrop-blur-xl"
-            >
-              <p className="text-lg font-black leading-8">
-                مساهمتك ليست رقماً فقط.
-              </p>
-              <p className="mt-2 text-sm leading-7 text-white/65">
-                هي علاج، وجبة، فرصة دراسة، أو بداية جديدة لشخص يحتاج من يقف معه.
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* CONTENT */}
-        <motion.div
-          initial={{ opacity: 0, x: 45 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
-          className="order-1 text-right md:order-2"
-        >
-          <span className="text-xs font-black tracking-[2px] text-[#8FE3B0]">
-            ثقتك أولاً
+          <span className="w-fit rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs font-black text-[#C7FF32]">
+            الشفافية والأثر
           </span>
 
-          <h2 className="mt-4 text-4xl font-black leading-tight md:text-5xl">
+          <h2 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
             تبرّع وأنت تعرف
             <br />
-            أثر مساهمتك بوضوح
+            أين يذهب دعمك
           </h2>
 
-          <p className="mt-6 max-w-xl text-sm leading-8 text-white/65 md:text-lg">
-            قبل أن تتبرع، سترى تفاصيل الحالة والمبلغ المطلوب ونسبة التقدم. وبعد
-            التبرع، تظهر التحديثات حتى تعرف كيف تحولت مساهمتك إلى أثر حقيقي.
+          <p className="mt-6 max-w-2xl text-sm leading-8 text-white/70 md:text-lg">
+            نهدف إلى جعل العمل الإنساني أكثر وضوحاً وتنظيماً، من خلال توثيق
+            التبرعات وربطها بالحالات الإنسانية مع متابعة مستمرة للأثر الحقيقي
+            داخل المجتمع.
           </p>
 
-          {/* METRICS */}
-          <div className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {metrics.map((item, index) => {
+          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
+            {features.map((item, index) => {
               const Icon = item.icon;
 
               return (
                 <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 35 }}
+                  key={item.title}
+                  initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: index * 0.12 }}
-                  className="rounded-[28px] border border-white/10 bg-white/[0.06] p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/[0.09]"
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-xl md:rounded-[30px] md:p-6"
                 >
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1F7A4D]/20 text-[#8FE3B0]">
-                    <Icon size={24} />
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C7FF32] text-[#041B13] md:h-14 md:w-14">
+                    <Icon className="h-6 w-6 md:h-7 md:w-7" />
                   </div>
 
-                  <h3 className="text-3xl font-black md:text-4xl">
-  <AnimatedCounter
-    value={item.value}
-    suffix={item.suffix}
-  />
-</h3>
+                  <h3 className="mt-4 text-base font-black leading-tight md:text-xl">
+                    {item.title}
+                  </h3>
 
-                <div className="mt-3">
-  <p className="text-sm font-bold text-white">
-    {item.title}
-  </p>
-
-  <p className="mt-1 text-xs leading-6 text-white/60">
-    {item.label}
-  </p>
-</div>
+                  <p className="mt-3 text-xs leading-6 text-white/65 md:text-sm md:leading-8">
+                    {item.desc}
+                  </p>
                 </motion.div>
               );
             })}
           </div>
 
-          {/* UPDATES */}
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-8 rounded-[30px] border border-white/10 bg-white/[0.05] p-5 backdrop-blur-xl"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <h3 className="text-lg font-black">آخر أثر للتبرعات</h3>
+          <div className="mt-8 rounded-[30px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:p-6">
+            <div className="mb-5 flex items-center justify-between">
+              <h3 className="text-2xl font-black">آخر التحديثات</h3>
 
-              <button className="flex items-center gap-2 text-xs font-bold text-[#8FE3B0]">
-                عرض الكل
-                <ArrowLeft size={15} />
-              </button>
+              <span className="rounded-full bg-[#C7FF32] px-4 py-2 text-xs font-black text-[#041B13]">
+                مباشر
+              </span>
             </div>
 
-            <div className="mt-5 space-y-3">
+            <div className="space-y-3">
               {updates.map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-white/8 bg-white/[0.04] px-4 py-3 text-sm leading-7 text-white/70"
+                  className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 text-sm leading-7 text-white/70"
                 >
                   {item}
                 </div>
               ))}
             </div>
-          </motion.div>
-
-          <button className="mt-8 rounded-full bg-[#1F7A4D] px-8 py-4 text-sm font-black text-white transition hover:scale-105 hover:bg-[#14532D]">
-            ساهم الآن
-          </button>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -3,9 +3,6 @@ import Footer from "@/components/layout/Footer";
 import CategoryHero from "@/components/category/CategoryHero";
 import CategoryStats from "@/components/category/CategoryStats";
 import CasesGrid from "@/components/category/CasesGrid";
-import PaymentMethods from "@/components/category/PaymentMethods";
-import DonationForm from "@/components/category/DonationForm";
-import SuggestCaseForm from "@/components/category/SuggestCaseForm";
 import { categories, type CategorySlug } from "@/data/categories";
 import { cases } from "@/data/cases";
 import { notFound } from "next/navigation";
@@ -35,13 +32,10 @@ export default async function CategoryPage({ params }: Props) {
       <CategoryStats cases={categoryCases} />
 
       <CasesGrid cases={categoryCases} />
-
-      <PaymentMethods />
-
       <section className="bg-[#eef8f2] px-4 py-16 text-[#082116] md:px-10 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
-          <DonationForm categoryTitle={category.title} />
-          <SuggestCaseForm categoryTitle={category.title} />
+         
+        
         </div>
       </section>
 

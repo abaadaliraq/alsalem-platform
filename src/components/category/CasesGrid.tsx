@@ -99,14 +99,13 @@ export default function CasesGrid({ cases }: Props) {
                     {percent}%
                   </p>
                 </div>
-
-                <a
-                  href="#donation-form"
-                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#22a66b] px-5 py-3 text-sm font-black text-white transition hover:bg-[#178755]"
-                >
-                  تبرع لهذه الحالة
-                  <ArrowLeft className="h-4 w-4" />
-                </a>
+<a
+  href={`/donate?target=${encodeURIComponent(item.needType)}`}
+  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#22a66b] px-5 py-3 text-sm font-black text-white transition hover:bg-[#178755]"
+>
+  تبرع لهذه الحالة
+  <ArrowLeft className="h-4 w-4" />
+</a>
               </motion.article>
             );
           })}

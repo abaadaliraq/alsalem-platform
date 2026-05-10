@@ -59,7 +59,7 @@ export default function Footer() {
             <div className="flex items-center justify-end gap-3">
               <div className="relative h-20 w-20 shrink-0">
                 <Image
-                  src="/logo.png"
+                  src="/logo-alsaleem.png"
                   alt="Al Salem Logo"
                   fill
                   sizes="80px"
@@ -68,15 +68,12 @@ export default function Footer() {
               </div>
 
               <div className="text-right">
-                <h2 className="text-2xl font-black leading-none">منصة السالم</h2>
-                <p className="mt-2 text-[10px] font-semibold tracking-[3px] text-white/40">
-                  AL SALEM PLATFORM
-                </p>
+
               </div>
             </div>
 
             <p className="mt-6 max-w-sm text-sm leading-8 text-white/55">
-              منصة إنسانية لدعم الحالات العلاجية والمعيشية عبر تجربة رقمية شفافة وسهلة الوصول.
+              مظمة خيرية لدعم الحالات العلاجية والمعيشية عبر تجربة رقمية شفافة وسهلة الوصول.
             </p>
 
             <div className="mt-7 flex items-center justify-end gap-3">

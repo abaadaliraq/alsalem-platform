@@ -132,9 +132,12 @@ export default function UrgentCasesSection() {
                 </div>
 
                 {/* BUTTON */}
-                <button className="mt-6 w-full rounded-full bg-[#1F7A4D] py-4 text-sm font-black text-white transition hover:bg-[#14532D]">
-                  تبرع للحالة
-                </button>
+               <a
+  href="/categories/health#donation-form"
+  className="mt-6 block w-full rounded-full bg-[#1F7A4D] py-4 text-center text-sm font-black text-white transition hover:bg-[#14532D]"
+>
+  تبرع للحالة
+</a>
               </div>
             </motion.div>
           ))}

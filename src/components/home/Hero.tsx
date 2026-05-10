@@ -78,7 +78,7 @@ export default function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
 className="mb-4 w-full text-right text-xs font-bold text-[#8FE3B0] md:mb-6 md:text-sm"        >
-          منصة السالم الإنسانية
+          منظمة  السالم الخيرية
         </motion.span>
 
         <motion.h1
@@ -98,7 +98,7 @@ className="mb-4 w-full text-right text-xs font-bold text-[#8FE3B0] md:mb-6 md:te
           transition={{ duration: 1.1 }}
           className="mt-5 max-w-[340px] text-right text-sm leading-8 text-white/75 md:mt-8 md:max-w-2xl md:text-lg md:leading-9"
         >
-          منصة إنسانية تهدف إلى دعم الحالات العلاجية والمعيشية عبر تجربة رقمية
+          منظمة خيرية تهدف إلى دعم الحالات العلاجية والمعيشية عبر تجربة رقمية
           حديثة تجمع بين الشفافية، الثقة، وسهولة التبرع.
         </motion.p>
 
