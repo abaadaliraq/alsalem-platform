@@ -1,171 +1,244 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
+import Image from "next/image";
 
-const platformLinks = [
-  { name: "الرئيسية", href: "/" },
-  { name: "الحالات", href: "/" },
-  { name: "المبادرات", href: "/" },
-  { name: "من نحن", href: "/" },
-  { name: "تواصل معنا", href: "/" },
-];
+type Locale = "ar" | "en" | "ku";
 
-function InstagramIcon() {
+type Props = {
+  locale: Locale;
+};
+
+export default function Footer({ locale }: Props) {
+  const isAr = locale === "ar";
+
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
-      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-    </svg>
-  );
-}
+    <footer className="bg-[#061A2B] px-0 py-0 text-white">
+  <div className="w-full overflow-hidden bg-gradient-to-br from-[#061A2B] via-[#071726] to-[#1D0B3F]">
+        {/* TOP WAVE */}
+        <div className="relative h-[70px] overflow-hidden bg-[#232D2C]">
+          <div className="absolute -top-[70px] left-[-5%] h-[140px] w-[45%] rounded-[100%] bg-[#061A2B]" />
 
-function FacebookIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M14 8H16V4H13C10.8 4 9 5.8 9 8V10H6V14H9V21H13V14H16L17 10H13V8C13 7.4 13.4 7 14 7Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
+<div className="absolute -top-[85px] left-[28%] h-[170px] w-[45%] rounded-[100%] bg-[#061A2B]" />
 
-function XIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M18.7 3H21L14.5 10.4L22 21H16.1L11.5 14.7L6.1 21H3.8L10.7 13.1L3.5 3H9.5L13.7 8.9L18.7 3ZM17.7 19.1H19L8.8 4.8H7.4L17.7 19.1Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-export default function Footer() {
-  return (
-    <footer dir="rtl" className="relative overflow-hidden bg-[#07110D] text-white">
-      <div className="pointer-events-none absolute bottom-[-70px] left-0 text-[120px] font-black leading-none text-white/[0.035] md:text-[300px]">
-        ALSALEM
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-5 py-12 md:px-10 md:py-16">
-        <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.2fr_0.7fr_0.8fr_1fr]">
-          
-          {/* BRAND */}
-          <div className="text-right">
-            <div className="flex items-center justify-end gap-3">
-              <div className="relative h-20 w-20 shrink-0">
-                <Image
-                  src="/logo-alsaleem.png"
-                  alt="Al Salem Logo"
-                  fill
-                  sizes="80px"
-                  className="object-contain"
-                />
-              </div>
-
-              <div className="text-right">
-
-              </div>
-            </div>
-
-            <p className="mt-6 max-w-sm text-sm leading-8 text-white/55">
-              مظمة خيرية لدعم الحالات العلاجية والمعيشية عبر تجربة رقمية شفافة وسهلة الوصول.
-            </p>
-
-            <div className="mt-7 flex items-center justify-end gap-3">
-              {[InstagramIcon, FacebookIcon, XIcon].map((Icon, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/60 transition hover:border-[#8FE3B0] hover:bg-[#1F7A4D] hover:text-white"
-                >
-                  <Icon />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* LINKS */}
-          <div className="text-right">
-            <h3 className="text-sm font-black text-white">المنصة</h3>
-
-            <div className="mt-5 space-y-4">
-              {platformLinks.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block text-sm text-white/50 transition hover:text-[#8FE3B0]"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* CONTACT */}
-          <div className="text-right">
-            <h3 className="text-sm font-black text-white">تواصل معنا</h3>
-
-            <div className="mt-5 space-y-4">
-              <div className="flex items-center justify-start gap-2 text-sm text-white/50 md:justify-end">
-                <span>info@alsalem.org</span>
-                <Mail size={16} />
-              </div>
-
-              <div className="flex items-center justify-start gap-2 text-sm text-white/50 md:justify-end">
-                <span>+964 770 000 0000</span>
-                <Phone size={16} />
-              </div>
-            </div>
-          </div>
-
-          {/* FORM */}
-          <div className="text-right">
-            <h3 className="text-sm font-black text-white">تواصل مباشر</h3>
-
-            <div className="mt-5 space-y-3">
-              <input
-                type="text"
-                name="fullName"
-                placeholder="الاسم الكامل"
-                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-right text-sm text-white outline-none placeholder:text-white/25"
-              />
-
-              <input
-                type="email"
-                name="email"
-                placeholder="البريد الإلكتروني"
-                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-right text-sm text-white outline-none placeholder:text-white/25"
-              />
-
-              <textarea
-                name="message"
-                placeholder="رسالتك"
-                className="h-28 w-full resize-none rounded-xl border border-white/10 bg-white/[0.04] p-4 text-right text-sm text-white outline-none placeholder:text-white/25"
-              />
-
-              <button className="h-12 w-full rounded-xl bg-white text-sm font-black text-[#07110D] transition hover:bg-[#8FE3B0]">
-                إرسال الرسالة
-              </button>
-            </div>
-          </div>
+<div className="absolute -top-[70px] right-[-5%] h-[140px] w-[45%] rounded-[100%] bg-[#061A2B]" />
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 pt-6 text-center md:flex-row">
-          <p className="text-xs text-white/35">
-            © 2026 منصة السالم الإنسانية — جميع الحقوق محفوظة
-          </p>
+        {/* CONTENT */}
+        <div className="px-7 pb-10 pt-4 md:px-14">
+          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
+            {/* BRAND */}
+            <div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#8B5CF6]">
+                  <Image
+                    src="/logo.png"
+                    alt="logo"
+                    width={22}
+                    height={22}
+                    className="object-contain"
+                  />
+                </div>
 
-          <div className="flex items-center gap-5 text-xs text-white/35">
-            <a href="#">سياسة الخصوصية</a>
-            <a href="#">الشروط والأحكام</a>
+                <div>
+                  <h3 className="text-sm font-semibold text-white">
+                    Al Saleem
+                  </h3>
+
+                  <p className="text-[11px] text-white/35">
+                    Charity Organization
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-6 max-w-[220px] text-[13px] leading-7 text-white/45">
+                {isAr
+                  ? "منصة إنسانية حديثة تربط التبرعات بالحالات المحتاجة بشكل واضح وموثوق."
+                  : "A modern charity platform connecting donations with real humanitarian cases."}
+              </p>
+
+              {/* SOCIALS */}
+              <div className="mt-8 flex items-center gap-3 text-[#C7A03C]">
+                {/* Facebook */}
+                <Link
+                  href="https://facebook.com"
+                  target="_blank"
+                  className="transition hover:scale-110 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path d="M13 22V12h3.5l.5-4H13V5.5c0-1.2.3-2 2-2H17V0h-3c-3.3 0-5 2-5 5.5V8H6v4h3v10h4z" />
+                  </svg>
+                </Link>
+
+                {/* Instagram */}
+                <Link
+                  href="https://instagram.com"
+                  target="_blank"
+                  className="transition hover:scale-110 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.5 5.5 0 0 0 12 7.5zm0 2A3.5 3.5 0 1 1 8.5 13 3.5 3.5 0 0 1 12 9.5zm5.8-3.3a1.2 1.2 0 1 0 1.2 1.2 1.2 1.2 0 0 0-1.2-1.2z" />
+                  </svg>
+                </Link>
+
+                {/* YouTube */}
+                <Link
+                  href="https://youtube.com"
+                  target="_blank"
+                  className="transition hover:scale-110 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path d="M21.8 8s-.2-1.5-.8-2.2c-.8-.9-1.7-.9-2.1-1C15.9 4.5 12 4.5 12 4.5h0s-3.9 0-6.9.3c-.4.1-1.3.1-2.1 1C2.4 6.5 2.2 8 2.2 8S2 9.8 2 11.5V13c0 1.7.2 3.5.2 3.5s.2 1.5.8 2.2c.8.9 1.9.9 2.4 1 1.7.2 6.6.3 6.6.3s3.9 0 6.9-.3c.4-.1 1.3-.1 2.1-1 .6-.7.8-2.2.8-2.2s.2-1.8.2-3.5v-1.5C22 9.8 21.8 8 21.8 8zM10 15.3V9.7l5.2 2.8L10 15.3z" />
+                  </svg>
+                </Link>
+
+                {/* X */}
+                <Link
+                  href="https://x.com"
+                  target="_blank"
+                  className="transition hover:scale-110 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.5 22H3.4l7.3-8.4L1 2h6.3l4.3 5.7L18.9 2zm-1.1 18h1.7L6.2 3.9H4.4L17.8 20z" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* COLUMN */}
+            <FooterColumn
+              title="Navigation"
+              links={[
+                {
+                  label: isAr ? "الرئيسية" : "Home",
+                  href: `/${locale}`,
+                },
+                {
+                  label: isAr ? "من نحن" : "About",
+                  href: `/${locale}/about`,
+                },
+                {
+                  label: isAr ? "الحالات" : "Cases",
+                  href: `/${locale}/cases`,
+                },
+                {
+                  label: isAr ? "تبرع الآن" : "Donate",
+                  href: `/${locale}/donate`,
+                },
+              ]}
+            />
+
+            <FooterColumn
+              title="Support"
+              links={[
+                {
+                  label: isAr ? "الأقسام" : "Categories",
+                  href: `/${locale}/categories`,
+                },
+                {
+                  label: isAr ? "المتطوعون" : "Volunteers",
+                  href: `/${locale}/volunteers`,
+                },
+                {
+                  label: isAr ? "الشفافية" : "Transparency",
+                  href: `/${locale}/transparency`,
+                },
+              ]}
+            />
+
+            <FooterColumn
+              title="Legal"
+              links={[
+                {
+                  label: "Privacy Policy",
+                  href: `/${locale}/privacy-policy`,
+                },
+                {
+                  label: "Terms",
+                  href: `/${locale}/terms`,
+                },
+                {
+                  label: "Cookies",
+                  href: `/${locale}/cookies`,
+                },
+              ]}
+            />
+
+            <FooterColumn
+              title="Contact"
+              links={[
+                {
+                  label: "info@alsaleem.org",
+                  href: "#",
+                },
+                {
+                  label: "+964 770 000 0000",
+                  href: "#",
+                },
+                {
+                  label: "Baghdad, Iraq",
+                  href: "#",
+                },
+              ]}
+            />
+          </div>
+
+          {/* BOTTOM */}
+          <div className="mt-12 border-t border-white/10 pt-6 text-center text-[11px] text-white/30">
+            © 2026 Al Saleem Charity Organization
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+
+  links: {
+    label: string;
+    href: string;
+  }[];
+}) {
+  return (
+    <div>
+      <h4 className="mb-4 text-[13px] font-semibold text-[#78D36B]">
+        {title}
+      </h4>
+
+      <div className="space-y-3">
+        {links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            className="block text-[13px] font-medium text-white/45 transition hover:text-white"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }
