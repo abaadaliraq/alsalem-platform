@@ -1,163 +1,122 @@
-import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "سياسة الكوكيز | منظمة السالم الخيرية",
-  description:
-    "تعرف على كيفية استخدام ملفات تعريف الارتباط (Cookies) داخل منصة منظمة السالم الخيرية.",
+type Locale = "ar" | "en" | "ku";
+
+type Props = {
+  params: Promise<{
+    locale: Locale;
+  }>;
 };
 
-export default function CookiesPage() {
+const sections = [
+  {
+    title: "What Are Cookies",
+    text: `Cookies are small text files stored on a user’s device when visiting a website. They help improve browsing experience, remember preferences, analyze website traffic, and support the functionality of different platform features.`,
+  },
+
+  {
+    title: "How Cookies Are Used",
+    text: `Al Saleem Charity uses cookies and similar technologies to improve website performance, maintain session stability, remember language or user preferences, analyze visitor interactions, and optimize the overall platform experience.`,
+  },
+
+  {
+    title: "Performance and Analytics",
+    text: `Cookies may collect anonymous technical information such as browser type, device information, pages visited, session duration, navigation behavior, and general usage statistics. This information helps improve website functionality and user experience.`,
+  },
+
+  {
+    title: "Essential Cookies",
+    text: `Certain cookies are necessary for the proper operation of the platform. These cookies support basic functions such as navigation, security, language selection, and form submission processes.`,
+  },
+
+  {
+    title: "Third-Party Services",
+    text: `Some third-party services integrated into the platform, such as analytics tools, embedded media, cloud hosting services, or communication systems, may also use cookies or related tracking technologies as part of their functionality.`,
+  },
+
+  {
+    title: "Managing Cookies",
+    text: `Users may manage, disable, or delete cookies through their browser settings at any time. Disabling certain cookies may affect parts of the website experience or limit the functionality of some services.`,
+  },
+
+  {
+    title: "Data and Privacy",
+    text: `Cookies used by Al Saleem Charity are intended to improve technical performance and user experience. The organization does not use cookies to sell personal data or track users for unrelated advertising purposes.`,
+  },
+
+  {
+    title: "Policy Updates",
+    text: `This Cookies Policy may be updated periodically to reflect technical, legal, or operational changes related to the platform and its services.`,
+  },
+
+  {
+    title: "Contact",
+    text: `For questions regarding cookies, browser data, or website tracking technologies, users may contact Al Saleem Charity through the official communication channels provided on the platform.`,
+  },
+];
+
+export default async function CookiesPage({ params }: Props) {
+  const { locale } = await params;
+
   return (
-    <main className="relative overflow-hidden bg-[#050816] text-white">
-      {/* BACKGROUND */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.18),transparent_35%),radial-gradient(circle_at_bottom,rgba(59,130,246,0.14),transparent_35%)]" />
+    <main className="min-h-screen bg-[#f7f6f2] text-[#111111]">
+      <section className="border-b border-black/5 bg-white">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-7 md:px-10">
+          <div>
+            <p className="text-[10px] font-light tracking-[0.28em] text-black/35">
+              AL SALEEM CHARITY
+            </p>
 
-      <div className="relative mx-auto max-w-5xl px-6 py-24 md:px-10">
-        {/* HEADER */}
-        <div className="mb-16">
-          <span className="mb-4 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm text-white/70 backdrop-blur">
-            Cookie Policy
-          </span>
+            <h1 className="mt-3 text-[26px] font-light tracking-[-0.03em] text-black md:text-[42px]">
+              Cookies Policy
+            </h1>
+          </div>
 
-          <h1 className="text-4xl font-black leading-tight md:text-6xl">
-            سياسة الكوكيز
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-white/70">
-            تستخدم منصة منظمة السالم الخيرية ملفات تعريف الارتباط (Cookies)
-            لتحسين تجربة المستخدم، وتطوير أداء المنصة، وتوفير تجربة أكثر
-            سلاسة وأماناً أثناء التصفح.
-          </p>
+          <Link
+            href={`/${locale}`}
+            className="flex items-center gap-2 text-[11px] font-light text-black/45 transition hover:text-black"
+          >
+            <ArrowLeft size={14} strokeWidth={1.5} />
+            Back
+          </Link>
         </div>
+      </section>
 
-        {/* CONTENT */}
-        <div className="space-y-10">
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              1- ما هي ملفات الكوكيز؟
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              الكوكيز هي ملفات صغيرة يتم حفظها على جهاز المستخدم عند زيارة
-              الموقع الإلكتروني. تساعد هذه الملفات في تذكر بعض الإعدادات
-              والمعلومات لتحسين تجربة الاستخدام.
+      <section>
+        <div className="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
+          <div className="max-w-3xl">
+            <p className="text-[12px] font-light leading-7 text-black/52 md:text-[13px]">
+              This Cookies Policy explains how Al Saleem Charity uses cookies
+              and related technologies across the platform to improve
+              functionality, stability, security, and user experience.
             </p>
-          </section>
+          </div>
 
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              2- كيف نستخدم الكوكيز؟
-            </h2>
+          <div className="mt-14 space-y-12">
+            {sections.map((section) => (
+              <div
+                key={section.title}
+                className="border-b border-black/6 pb-10"
+              >
+                <h2 className="text-[15px] font-normal tracking-[-0.01em] text-black md:text-[18px]">
+                  {section.title}
+                </h2>
 
-            <div className="space-y-4 text-white/75 leading-8">
-              <p>
-                تستخدم منظمة السالم الخيرية الكوكيز للأغراض التالية:
-              </p>
-
-              <ul className="list-disc space-y-2 pr-6">
-                <li>تذكر لغة المستخدم وإعداداته.</li>
-                <li>تحسين أداء وسرعة الموقع.</li>
-                <li>تحليل استخدام المنصة بشكل عام.</li>
-                <li>تقديم تجربة تصفح أكثر استقراراً.</li>
-                <li>تعزيز الأمان ومنع الاستخدام غير المشروع.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              3- أنواع الكوكيز المستخدمة
-            </h2>
-
-            <div className="space-y-5 text-white/75 leading-8">
-              <div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  الكوكيز الأساسية
-                </h3>
-
-                <p>
-                  ضرورية لتشغيل الموقع بشكل صحيح وتمكين الوظائف الأساسية.
+                <p className="mt-4 max-w-3xl text-[12px] font-light leading-8 text-black/55 md:text-[13px]">
+                  {section.text}
                 </p>
               </div>
+            ))}
+          </div>
 
-              <div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  كوكيز الأداء والتحليل
-                </h3>
-
-                <p>
-                  تساعدنا على فهم كيفية استخدام الزوار للمنصة وتحسين التجربة.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  كوكيز التفضيلات
-                </h3>
-
-                <p>
-                  تستخدم لتذكر إعدادات المستخدم مثل اللغة أو بعض خيارات العرض.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              4- التحكم بالكوكيز
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              يمكن للمستخدم التحكم بملفات الكوكيز أو حذفها من خلال إعدادات
-              المتصفح الخاص به. قد يؤدي تعطيل بعض الكوكيز إلى التأثير على
-              وظائف معينة داخل المنصة.
+          <div className="mt-16 border-t border-black/6 pt-6">
+            <p className="text-[10px] font-light tracking-[0.08em] text-black/30">
+              © 2026 AL SALEEM CHARITY ORGANIZATION
             </p>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              5- خدمات الجهات الخارجية
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              قد تستخدم المنصة خدمات خارجية مثل أدوات التحليل أو خدمات الحماية،
-              والتي قد تقوم بدورها باستخدام ملفات كوكيز خاصة بها وفقاً لسياسات
-              تلك الجهات.
-            </p>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              6- تحديثات سياسة الكوكيز
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              قد تقوم منظمة السالم الخيرية بتحديث سياسة الكوكيز من وقت لآخر
-              بما يتوافق مع التطورات التقنية أو القانونية. استمرار استخدام
-              المنصة يعني موافقتك على النسخة المحدثة من هذه السياسة.
-            </p>
-          </section>
-
-          {/* CONTACT */}
-          <section className="rounded-[32px] border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              التواصل معنا
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              إذا كانت لديك أي استفسارات بخصوص سياسة الكوكيز أو كيفية استخدام
-              ملفات تعريف الارتباط داخل المنصة، يمكنك التواصل مع فريق منظمة
-              السالم الخيرية عبر صفحة التواصل.
-            </p>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

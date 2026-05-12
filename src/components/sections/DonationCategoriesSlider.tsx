@@ -1,110 +1,60 @@
-"use client";
-
-import { useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { donationCategories, type Locale } from "../../lib/data/categories";
+import { ArrowLeft } from "lucide-react";
+import type { Locale } from "../../lib/data/cases";
 
-export default function DonationCategoriesSlider({ locale }: { locale: Locale }) {
-  const sliderRef = useRef<HTMLDivElement | null>(null);
+type Props = {
+  locale: Locale;
+};
 
-  function slide(dir: "left" | "right") {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    const amount = slider.clientWidth * 0.75;
-    slider.scrollBy({
-      left: dir === "right" ? amount : -amount,
-      behavior: "smooth",
-    });
-  }
+export default function DonationCategoriesSlider({
+  locale,
+}: Props) {
+  const isAr = locale === "ar";
+  const isKu = locale === "ku";
 
   return (
-    <section className="relative overflow-hidden bg-transparent px-4 pb-14 pt-24 text-white md:px-10 md:pb-24 md:pt-32">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-transparent via-[#061A2B]/45 to-transparent" />
-      <div className="absolute inset-0 opacity-[0.16]">
+    <section id="categories" className="w-full bg-[#F5F1E8]">
+      <Link
+        href={`/${locale}/categories`}
+        className="group relative block h-[360px] w-full overflow-hidden md:h-[430px]"
+      >
         <img
-          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2200&auto=format&fit=crop"
-          alt=""
-          className="h-full w-full object-cover"
+          src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2200&auto=format&fit=crop"
+          alt={isAr ? "الأقسام" : "Categories"}
+          className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
         />
-      </div>
 
-      <div className="absolute inset-0 bg-gradient-to-br from-[#071726] via-[#0B2A3C]/90 to-[#112F24]/80" />
+        {/* GREEN OVERLAY */}
+        <div className="absolute inset-0 bg-[#1C5B3D]/72" />
 
-      <div className="relative z-10">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <div>
-            <p className="mb-2 text-[11px] font-black tracking-[0.28em] text-[#F4C430]">
-              DONATION CATEGORIES
+        <div className="absolute inset-0 bg-gradient-to-b from-[#103524]/25 via-[#1C5B3D]/45 to-[#081B12]/70" />
+
+        <div className="relative z-10 flex h-full items-center justify-center px-5 text-center text-white">
+          <div className="max-w-3xl">
+            <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
+              {isAr
+                ? "أقسام التبرع"
+                : isKu
+                ? "بەشەکانی بەخشین"
+                : "Donation Categories"}
+            </h2>
+
+            <div className="mx-auto mt-5 h-[2px] w-16 bg-[#F4C430]" />
+
+            <p className="mx-auto mt-6 max-w-2xl text-sm font-normal leading-7 text-white/82 md:text-base md:leading-8">
+              {isAr
+                ? "استكشف مختلف أقسام الدعم الإنساني مثل التعليم والصحة والغذاء والاحتياجات الأساسية."
+                : isKu
+                ? "بەشە جیاوازەکانی هاوکاری مرۆیی بگەڕێ و یارمەتی پێویست پێشکەش بکە."
+                : "Explore different humanitarian support categories including education, health, food, and essential needs."}
             </p>
 
-            <h2 className="text-3xl font-black md:text-6xl">
-              {locale === "en"
-                ? "Donation Fields"
-                : locale === "ku"
-                ? "بوارەکانی بەخشین"
-                : "مجالات التبرع"}
-            </h2>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              onClick={() => slide("left")}
-              className="grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white backdrop-blur hover:bg-white hover:text-[#071726]"
-            >
-              <ArrowLeft size={20} />
-            </button>
-
-            <button
-              onClick={() => slide("right")}
-              className="grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white backdrop-blur hover:bg-white hover:text-[#071726]"
-            >
-              <ArrowRight size={20} />
-            </button>
+            <div className="mx-auto mt-8 flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/10 backdrop-blur transition group-hover:bg-white group-hover:text-[#103524]">
+              <ArrowLeft className="h-5 w-5" />
+            </div>
           </div>
         </div>
-
-        <div
-          ref={sliderRef}
-          className="flex gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {donationCategories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/${locale}/categories/${cat.slug}`}
-              className="group relative h-[360px] w-[78%] shrink-0 overflow-hidden rounded-[34px] md:w-[32%]"
-              style={{ backgroundColor: cat.color }}
-            >
-              <img
-                src={cat.image}
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover opacity-75 transition duration-700 group-hover:scale-110"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-
-              <div className="absolute bottom-0 p-6">
-                <h3 className="text-3xl font-black leading-tight text-white">
-                  {cat.title[locale]}
-                </h3>
-
-                <p className="mt-3 text-sm leading-7 text-white/75">
-                  {cat.short[locale]}
-                </p>
-
-                <div className="mt-5 inline-flex rounded-full bg-[#F4C430] px-5 py-3 text-sm font-black text-[#071726]">
-                  {locale === "en"
-                    ? "Explore Cases"
-                    : locale === "ku"
-                    ? "کەیسەکان ببینە"
-                    : "استعرض الحالات"}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      </Link>
     </section>
   );
 }

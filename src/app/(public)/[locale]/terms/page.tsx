@@ -1,159 +1,107 @@
-import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "الشروط والأحكام | منظمة السالم الخيرية",
-  description:
-    "الشروط والأحكام الخاصة باستخدام منصة منظمة السالم الخيرية وخدمات التبرع.",
+type Locale = "ar" | "en" | "ku";
+
+type Props = {
+  params: Promise<{
+    locale: Locale;
+  }>;
 };
 
-export default function TermsPage() {
+const sections = [
+  {
+    title: "Use of the Platform",
+    text: "Al Saleem Charity provides humanitarian support services and donation facilitation for verified charitable cases. By using this platform, users agree to interact respectfully and provide accurate information during any donation or communication process.",
+  },
+
+  {
+    title: "Donations",
+    text: "All donations submitted through the platform are reviewed and processed by the organization team. The platform reserves the right to verify donations, reject suspicious submissions, or request additional confirmation when necessary.",
+  },
+
+  {
+    title: "Information Accuracy",
+    text: "Users are responsible for ensuring that all submitted personal information, donation details, and communication data are accurate and up to date.",
+  },
+
+  {
+    title: "Privacy",
+    text: "Personal information submitted through forms or contact sections is used strictly for communication, donation follow-up, verification, and operational purposes related to the organization.",
+  },
+
+  {
+    title: "Platform Content",
+    text: "All content, visuals, branding, and media displayed on this website belong to Al Saleem Charity unless otherwise stated. Unauthorized copying or redistribution is prohibited.",
+  },
+
+  {
+    title: "Changes to Terms",
+    text: "The organization may update or modify these terms at any time without prior notice in order to improve platform operations, security, or legal compliance.",
+  },
+];
+
+export default async function TermsPage({ params }: Props) {
+  const { locale } = await params;
+
   return (
-    <main className="relative overflow-hidden bg-[#050816] text-white">
-      {/* BACKGROUND */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.18),transparent_35%),radial-gradient(circle_at_bottom,rgba(59,130,246,0.14),transparent_35%)]" />
+    <main className="min-h-screen bg-[#f7f6f2] text-[#111111]">
+      <section className="border-b border-black/5 bg-white">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-7 md:px-10">
+          <div>
+            <p className="text-[10px] font-light tracking-[0.28em] text-black/35">
+              AL SALEEM CHARITY
+            </p>
 
-      <div className="relative mx-auto max-w-5xl px-6 py-24 md:px-10">
-        {/* HEADER */}
-        <div className="mb-16">
-          <span className="mb-4 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm text-white/70 backdrop-blur">
-            Terms & Conditions
-          </span>
+            <h1 className="mt-3 text-[26px] font-light tracking-[-0.03em] text-black md:text-[42px]">
+              Terms & Conditions
+            </h1>
+          </div>
 
-          <h1 className="text-4xl font-black leading-tight md:text-6xl">
-            الشروط والأحكام
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-white/70">
-            باستخدامك لمنصة منظمة السالم الخيرية، فإنك توافق على الالتزام
-            بالشروط والأحكام التالية. تم وضع هذه الشروط لضمان تجربة آمنة وواضحة
-            وعادلة لجميع المستخدمين والمتبرعين.
-          </p>
+          <Link
+            href={`/${locale}`}
+            className="flex items-center gap-2 text-[11px] font-light text-black/45 transition hover:text-black"
+          >
+            <ArrowLeft size={14} strokeWidth={1.5} />
+            Back
+          </Link>
         </div>
+      </section>
 
-        {/* CONTENT */}
-        <div className="space-y-10">
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              1- قبول الشروط
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              عند دخولك أو استخدامك لمنصة منظمة السالم الخيرية، فإنك تقر
-              بموافقتك الكاملة على جميع الشروط والأحكام المذكورة في هذه الصفحة.
-              إذا كنت لا توافق على أي جزء منها، يرجى عدم استخدام المنصة.
+      <section>
+        <div className="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
+          <div className="max-w-3xl">
+            <p className="text-[12px] font-light leading-7 text-black/52 md:text-[13px]">
+              These Terms & Conditions govern the use of the Al Saleem Charity
+              platform and all related donation, communication, and support
+              services provided through the website.
             </p>
-          </section>
+          </div>
 
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              2- استخدام المنصة
-            </h2>
+          <div className="mt-14 space-y-12">
+            {sections.map((section) => (
+              <div
+                key={section.title}
+                className="border-b border-black/6 pb-10"
+              >
+                <h2 className="text-[15px] font-normal tracking-[-0.01em] text-black md:text-[18px]">
+                  {section.title}
+                </h2>
 
-            <div className="space-y-4 text-white/75 leading-8">
-              <p>
-                يلتزم المستخدم باستخدام المنصة بطريقة قانونية وإنسانية وعدم
-                القيام بأي نشاط قد يضر بالمنصة أو المستخدمين الآخرين.
-              </p>
+                <p className="mt-4 max-w-3xl text-[12px] font-light leading-8 text-black/55 md:text-[13px]">
+                  {section.text}
+                </p>
+              </div>
+            ))}
+          </div>
 
-              <ul className="list-disc space-y-2 pr-6">
-                <li>عدم إرسال معلومات مزيفة أو مضللة.</li>
-                <li>عدم محاولة اختراق أو تعطيل المنصة.</li>
-                <li>عدم إساءة استخدام خدمات التبرع.</li>
-                <li>عدم رفع محتوى غير قانوني أو مسيء.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              3- التبرعات
-            </h2>
-
-            <div className="space-y-4 text-white/75 leading-8">
-              <p>
-                جميع التبرعات المقدمة عبر المنصة تعتبر مساهمات طوعية لدعم
-                الحالات والأنشطة الإنسانية التابعة لمنظمة السالم الخيرية.
-              </p>
-
-              <p>
-                يتحمل المتبرع مسؤولية التأكد من صحة بيانات التحويل والمعلومات
-                التي يقوم بإرسالها أثناء عملية التبرع.
-              </p>
-
-              <p>
-                تحتفظ المنظمة بحق مراجعة أو رفض أي تبرع في حال وجود اشتباه
-                بعملية غير قانونية أو مخالفة للأنظمة.
-              </p>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              4- المحتوى والبيانات
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              جميع النصوص والتصاميم والشعارات والمحتوى الموجود داخل المنصة
-              مملوك لمنظمة السالم الخيرية أو يتم استخدامه بإذن قانوني، ولا يجوز
-              إعادة استخدامه أو نسخه دون موافقة مسبقة.
+          <div className="mt-16 border-t border-black/6 pt-6">
+            <p className="text-[10px] font-light tracking-[0.08em] text-black/30">
+              © 2026 AL SALEEM CHARITY ORGANIZATION
             </p>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              5- حدود المسؤولية
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              تسعى منظمة السالم الخيرية لتوفير منصة مستقرة وآمنة، لكن لا يمكن
-              ضمان خلو الخدمة من الانقطاعات أو الأخطاء التقنية بشكل كامل.
-              استخدام المنصة يتم على مسؤولية المستخدم.
-            </p>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              6- الخصوصية
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              يخضع جمع واستخدام البيانات لسياسة الخصوصية الخاصة بالمنصة، وننصح
-              بقراءتها لفهم كيفية التعامل مع المعلومات الشخصية.
-            </p>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              7- التعديلات على الشروط
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              تحتفظ منظمة السالم الخيرية بحق تعديل أو تحديث هذه الشروط في أي
-              وقت دون إشعار مسبق. استمرار استخدام المنصة بعد التعديلات يعني
-              موافقتك على النسخة المحدثة.
-            </p>
-          </section>
-
-          {/* CONTACT */}
-          <section className="rounded-[32px] border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              التواصل معنا
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              إذا كانت لديك أي استفسارات بخصوص الشروط والأحكام، يمكنك التواصل
-              مع فريق منظمة السالم الخيرية عبر صفحة التواصل داخل المنصة.
-            </p>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
 type Locale = "ar" | "en" | "ku";
 
@@ -7,238 +10,296 @@ type Props = {
   locale: Locale;
 };
 
+const whatsappNumber = "9647770350030";
+
+const content = {
+  ar: {
+    desc: "منصة إنسانية حديثة تربط التبرعات بالحالات المحتاجة بوضوح وثقة.",
+    contactTitle: "تواصل معنا",
+    name: "الاسم الكامل",
+    contact: "رقم الهاتف أو البريد",
+    message: "الرسالة",
+    send: "إرسال الرسالة",
+    columns: [
+      {
+        title: "Company",
+        links: [
+          ["عن المنظمة", "/about"],
+          ["الحالات", "/cases"],
+          ["الأقسام", "/categories"],
+          ["آلية التبرع", "/donate"],
+        ],
+      },
+      {
+        title: "Support",
+        links: [
+          ["تواصل معنا", "/contact"],
+          ["المتطوعون", "/volunteers"],
+          ["الشفافية", "/transparency"],
+          ["الأسئلة الشائعة", "/faq"],
+        ],
+      },
+      
+    ],
+  },
+  en: {
+    desc: "A modern charity platform connecting donations with real humanitarian cases.",
+    contactTitle: "Contact us from",
+    name: "Full name",
+    contact: "Email or phone",
+    message: "Message",
+    send: "Send message",
+    columns: [
+      {
+        title: "Company",
+        links: [
+          ["About Us", "/about"],
+          ["Cases", "/cases"],
+          ["Categories", "/categories"],
+          ["Donation Process", "/donate"],
+        ],
+      },
+      {
+        title: "Support",
+        links: [
+          ["Contact Us", "/contact"],
+          ["Volunteers", "/volunteers"],
+          ["Transparency", "/transparency"],
+          ["FAQ", "/faq"],
+        ],
+      },
+      {
+        title: "Legal",
+        links: [
+          ["Privacy Policy", "/privacy-policy"],
+          ["Terms", "/terms"],
+          ["Cookies", "/cookies"],
+        ],
+      },
+    ],
+  },
+  ku: {
+    desc: "پلاتفۆرمێکی مرۆیی نوێ بۆ گەیاندنی یارمەتی بە ڕوونی و متمانە.",
+    contactTitle: "پەیوەندی بکە",
+    name: "ناوی تەواو",
+    contact: "ئیمەیڵ یان ژمارە",
+    message: "نامە",
+    send: "ناردنی نامە",
+    columns: [
+      {
+        title: "Company",
+        links: [
+          ["دەربارەی ئێمە", "/about"],
+          ["حاڵەتەکان", "/cases"],
+          ["بەشەکان", "/categories"],
+          ["شێوازی بەخشین", "/donate"],
+        ],
+      },
+      {
+        title: "Support",
+        links: [
+          ["پەیوەندی", "/contact"],
+          ["خۆبەخشەکان", "/volunteers"],
+          ["ڕوونی", "/transparency"],
+          ["پرسیارەکان", "/faq"],
+        ],
+      },
+      {
+        title: "Legal",
+        links: [
+          ["Privacy Policy", "/privacy-policy"],
+          ["Terms", "/terms"],
+          ["Cookies", "/cookies"],
+        ],
+      },
+    ],
+  },
+};
+
 export default function Footer({ locale }: Props) {
-  const isAr = locale === "ar";
+  const t = content[locale] ?? content.ar;
+  const isRtl = locale === "ar" || locale === "ku";
+
+  const [form, setForm] = useState({
+    name: "",
+    contact: "",
+    message: "",
+  });
+
+  function sendToWhatsApp(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const text = `
+رسالة من موقع منظمة السالم الخيرية
+
+الاسم: ${form.name || "-"}
+التواصل: ${form.contact || "-"}
+الرسالة: ${form.message || "-"}
+    `.trim();
+
+    window.open(
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`,
+      "_blank"
+    );
+  }
 
   return (
-    <footer className="bg-[#061A2B] px-0 py-0 text-white">
-  <div className="w-full overflow-hidden bg-gradient-to-br from-[#061A2B] via-[#071726] to-[#1D0B3F]">
-        {/* TOP WAVE */}
-        <div className="relative h-[70px] overflow-hidden bg-[#232D2C]">
-          <div className="absolute -top-[70px] left-[-5%] h-[140px] w-[45%] rounded-[100%] bg-[#061A2B]" />
+    <footer
+      dir={isRtl ? "rtl" : "ltr"}
+      className="relative overflow-hidden bg-[#101915] text-white"
+    >
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-[1.35fr_1fr_1fr_1.25fr] md:px-10 md:py-16">
+        <div>
+          <Link href={`/${locale}`} className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="Al Saleem"
+              width={38}
+              height={38}
+              className="h-[38px] w-auto object-contain"
+            />
+            <div>
+              <p className="text-[17px] font-normal leading-none">Al Saleem</p>
+              <p className="mt-1 text-[10px] font-normal tracking-[0.18em] text-white/45">
+                CHARITY
+              </p>
+            </div>
+          </Link>
 
-<div className="absolute -top-[85px] left-[28%] h-[170px] w-[45%] rounded-[100%] bg-[#061A2B]" />
+          <p className="mt-5 max-w-[260px] text-[13px] font-normal leading-7 text-white/55">
+            {t.desc}
+          </p>
 
-<div className="absolute -top-[70px] right-[-5%] h-[140px] w-[45%] rounded-[100%] bg-[#061A2B]" />
+          <div className="mt-8">
+            <p className="mb-3 text-[12px] font-normal text-white/75">
+              Follow us on
+            </p>
+
+            <div className="flex items-center gap-3 text-white/70">
+              <Social href="https://facebook.com" label="Facebook" icon="f" />
+              <Social href="https://instagram.com" label="Instagram" icon="◎" />
+              <Social href="https://tiktok.com" label="TikTok" icon="♪" />
+              <Social href="https://youtube.com" label="YouTube" icon="▶" />
+            </div>
+          </div>
         </div>
 
-        {/* CONTENT */}
-        <div className="px-7 pb-10 pt-4 md:px-14">
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
-            {/* BRAND */}
-            <div>
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#8B5CF6]">
-                  <Image
-                    src="/logo.png"
-                    alt="logo"
-                    width={22}
-                    height={22}
-                    className="object-contain"
-                  />
-                </div>
+        <div className="grid grid-cols-2 gap-8 md:contents">
+          {t.columns.map((col) => (
+            <div key={col.title}>
+              <h4 className="mb-4 text-[13px] font-normal text-white">
+                {col.title}
+              </h4>
 
-                <div>
-                  <h3 className="text-sm font-semibold text-white">
-                    Al Saleem
-                  </h3>
-
-                  <p className="text-[11px] text-white/35">
-                    Charity Organization
-                  </p>
-                </div>
-              </div>
-
-              <p className="mt-6 max-w-[220px] text-[13px] leading-7 text-white/45">
-                {isAr
-                  ? "منصة إنسانية حديثة تربط التبرعات بالحالات المحتاجة بشكل واضح وموثوق."
-                  : "A modern charity platform connecting donations with real humanitarian cases."}
-              </p>
-
-              {/* SOCIALS */}
-              <div className="mt-8 flex items-center gap-3 text-[#C7A03C]">
-                {/* Facebook */}
-                <Link
-                  href="https://facebook.com"
-                  target="_blank"
-                  className="transition hover:scale-110 hover:text-white"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
+              <div className="space-y-3">
+                {col.links.map(([label, href]) => (
+                  <Link
+                    key={href}
+                    href={`/${locale}${href}`}
+                    className="block text-[12px] font-normal text-white/43 transition hover:text-white"
                   >
-                    <path d="M13 22V12h3.5l.5-4H13V5.5c0-1.2.3-2 2-2H17V0h-3c-3.3 0-5 2-5 5.5V8H6v4h3v10h4z" />
-                  </svg>
-                </Link>
-
-                {/* Instagram */}
-                <Link
-                  href="https://instagram.com"
-                  target="_blank"
-                  className="transition hover:scale-110 hover:text-white"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                  >
-                    <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.5 5.5 0 0 0 12 7.5zm0 2A3.5 3.5 0 1 1 8.5 13 3.5 3.5 0 0 1 12 9.5zm5.8-3.3a1.2 1.2 0 1 0 1.2 1.2 1.2 1.2 0 0 0-1.2-1.2z" />
-                  </svg>
-                </Link>
-
-                {/* YouTube */}
-                <Link
-                  href="https://youtube.com"
-                  target="_blank"
-                  className="transition hover:scale-110 hover:text-white"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                  >
-                    <path d="M21.8 8s-.2-1.5-.8-2.2c-.8-.9-1.7-.9-2.1-1C15.9 4.5 12 4.5 12 4.5h0s-3.9 0-6.9.3c-.4.1-1.3.1-2.1 1C2.4 6.5 2.2 8 2.2 8S2 9.8 2 11.5V13c0 1.7.2 3.5.2 3.5s.2 1.5.8 2.2c.8.9 1.9.9 2.4 1 1.7.2 6.6.3 6.6.3s3.9 0 6.9-.3c.4-.1 1.3-.1 2.1-1 .6-.7.8-2.2.8-2.2s.2-1.8.2-3.5v-1.5C22 9.8 21.8 8 21.8 8zM10 15.3V9.7l5.2 2.8L10 15.3z" />
-                  </svg>
-                </Link>
-
-                {/* X */}
-                <Link
-                  href="https://x.com"
-                  target="_blank"
-                  className="transition hover:scale-110 hover:text-white"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                  >
-                    <path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.5 22H3.4l7.3-8.4L1 2h6.3l4.3 5.7L18.9 2zm-1.1 18h1.7L6.2 3.9H4.4L17.8 20z" />
-                  </svg>
-                </Link>
+                    {label}
+                  </Link>
+                ))}
               </div>
             </div>
-
-            {/* COLUMN */}
-            <FooterColumn
-              title="Navigation"
-              links={[
-                {
-                  label: isAr ? "الرئيسية" : "Home",
-                  href: `/${locale}`,
-                },
-                {
-                  label: isAr ? "من نحن" : "About",
-                  href: `/${locale}/about`,
-                },
-                {
-                  label: isAr ? "الحالات" : "Cases",
-                  href: `/${locale}/cases`,
-                },
-                {
-                  label: isAr ? "تبرع الآن" : "Donate",
-                  href: `/${locale}/donate`,
-                },
-              ]}
-            />
-
-            <FooterColumn
-              title="Support"
-              links={[
-                {
-                  label: isAr ? "الأقسام" : "Categories",
-                  href: `/${locale}/categories`,
-                },
-                {
-                  label: isAr ? "المتطوعون" : "Volunteers",
-                  href: `/${locale}/volunteers`,
-                },
-                {
-                  label: isAr ? "الشفافية" : "Transparency",
-                  href: `/${locale}/transparency`,
-                },
-              ]}
-            />
-
-            <FooterColumn
-              title="Legal"
-              links={[
-                {
-                  label: "Privacy Policy",
-                  href: `/${locale}/privacy-policy`,
-                },
-                {
-                  label: "Terms",
-                  href: `/${locale}/terms`,
-                },
-                {
-                  label: "Cookies",
-                  href: `/${locale}/cookies`,
-                },
-              ]}
-            />
-
-            <FooterColumn
-              title="Contact"
-              links={[
-                {
-                  label: "info@alsaleem.org",
-                  href: "#",
-                },
-                {
-                  label: "+964 770 000 0000",
-                  href: "#",
-                },
-                {
-                  label: "Baghdad, Iraq",
-                  href: "#",
-                },
-              ]}
-            />
-          </div>
-
-          {/* BOTTOM */}
-          <div className="mt-12 border-t border-white/10 pt-6 text-center text-[11px] text-white/30">
-            © 2026 Al Saleem Charity Organization
-          </div>
+          ))}
         </div>
+
+        <form onSubmit={sendToWhatsApp} className="md:col-start-4">
+          <h4 className="mb-4 text-[13px] font-normal text-white">
+            {t.contactTitle}
+          </h4>
+
+          <div className="grid gap-2">
+            <input
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              placeholder={t.name}
+              className="h-11 w-full rounded-md border border-white/5 bg-white/9 px-4 text-[12px] font-normal text-white outline-none placeholder:text-white/35 focus:border-white/20"
+            />
+
+            <input
+              value={form.contact}
+              onChange={(e) => setForm({ ...form, contact: e.target.value })}
+              placeholder={t.contact}
+              className="h-11 w-full rounded-md border border-white/5 bg-white/9 px-4 text-[12px] font-normal text-white outline-none placeholder:text-white/35 focus:border-white/20"
+            />
+
+            <textarea
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              placeholder={t.message}
+              className="min-h-[115px] w-full resize-none rounded-md border border-white/5 bg-white/9 px-4 py-3 text-[12px] font-normal leading-6 text-white outline-none placeholder:text-white/35 focus:border-white/20"
+            />
+
+            <button
+              type="submit"
+              className="mt-1 h-11 rounded-md bg-white text-[12px] font-normal text-[#101915] transition hover:bg-[#f8c542]"
+            >
+              {t.send}
+            </button>
+          </div>
+        </form>
       </div>
+
+      <div className="pointer-events-none absolute -bottom-[95px] left-0 right-0 text-center text-[160px] font-black leading-none tracking-[-0.08em] text-white/[0.035] md:-bottom-[150px] md:text-[300px]">
+        saleem
+      </div>
+
+     <div className="relative border-t border-white/7 px-6 py-4">
+  <div className="flex flex-wrap items-center justify-center gap-4 text-[9px] font-light tracking-[0.08em] text-white/28 md:text-[10px]">
+    <Link
+      href={`/${locale}/privacy-policy`}
+      className="transition hover:text-white/60"
+    >
+      Privacy Policy
+    </Link>
+
+    <span className="h-[3px] w-[3px] rounded-full bg-white/20" />
+
+    <Link
+      href={`/${locale}/terms`}
+      className="transition hover:text-white/60"
+    >
+      Terms
+    </Link>
+
+    <span className="h-[3px] w-[3px] rounded-full bg-white/20" />
+
+    <Link
+      href={`/${locale}/cookies`}
+      className="transition hover:text-white/60"
+    >
+      Cookies
+    </Link>
+  </div>
+
+  <p className="mt-3 text-center text-[9px] font-light tracking-[0.06em] text-white/18">
+    © 2026 Al Saleem Charity Organization
+  </p>
+</div>
     </footer>
   );
 }
 
-function FooterColumn({
-  title,
-  links,
+function Social({
+  href,
+  label,
+  icon,
 }: {
-  title: string;
-
-  links: {
-    label: string;
-    href: string;
-  }[];
+  href: string;
+  label: string;
+  icon: string;
 }) {
   return (
-    <div>
-      <h4 className="mb-4 text-[13px] font-semibold text-[#78D36B]">
-        {title}
-      </h4>
-
-      <div className="space-y-3">
-        {links.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            className="block text-[13px] font-medium text-white/45 transition hover:text-white"
-          >
-            {link.label}
-          </Link>
-        ))}
-      </div>
-    </div>
+    <Link
+      href={href}
+      target="_blank"
+      aria-label={label}
+      className="flex h-8 w-8 items-center justify-center rounded-full bg-white/6 text-[12px] transition hover:bg-white hover:text-[#101915]"
+    >
+      {icon}
+    </Link>
   );
 }

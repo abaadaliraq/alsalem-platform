@@ -1,103 +1,58 @@
-"use client";
-
-import { useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import CaseCard from "../cases/CaseCard";
-import { cases, type Locale } from "../../lib/data/cases";
+import { ArrowLeft } from "lucide-react";
+import type { Locale } from "../../lib/data/cases";
 
-export default function UrgentCasesSection({ locale }: { locale: Locale }) {
-  const sliderRef = useRef<HTMLDivElement | null>(null);
-  const previewCases = cases.slice(0, 5);
+type Props = {
+  locale: Locale;
+};
 
-  function scrollSlider(direction: "left" | "right") {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    const amount = slider.clientWidth * 0.75;
-    const maxScroll = slider.scrollWidth - slider.clientWidth;
-
-    let next = direction === "right" ? slider.scrollLeft + amount : slider.scrollLeft - amount;
-
-    if (next >= maxScroll - 20) next = 0;
-    if (next <= 0 && direction === "left") next = maxScroll;
-
-    slider.scrollTo({
-      left: next,
-      behavior: "smooth",
-    });
-  }
+export default function UrgentCasesSection({ locale }: Props) {
+  const isAr = locale === "ar";
+  const isKu = locale === "ku";
 
   return (
-   <section className="relative overflow-hidden bg-transparent px-4 pb-28 pt-14 text-white md:px-10 md:pb-36 md:pt-24">
-      <img
-        src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2200&auto=format&fit=crop"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+    <section id="urgent-cases" className="w-full bg-[#F5F1E8]">
+      <Link
+        href={`/${locale}/cases`}
+        className="group relative block h-[360px] w-full overflow-hidden md:h-[430px]"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2200&auto=format&fit=crop"
+          alt={isAr ? "الحالات الطارئة" : "Urgent cases"}
+          className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+        />
 
-      <div className="absolute inset-0 bg-[#35108A]/85" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#14042B] via-[#5B2BD8]/45 to-[#FFD32A]/10" />
+        {/* RED OVERLAY */}
+        <div className="absolute inset-0 bg-[#7A1010]/72" />
 
-      <div className="relative z-10 flex h-full w-full flex-col py-10 md:py-14">
-        <div className="mb-6 flex items-end justify-between gap-4 px-5 text-white md:px-14">
-          <div>
-            <p className="mb-2 text-[10px] font-black tracking-[0.28em] text-[#FFD32A] md:text-sm">
-              URGENT CASES
+        <div className="absolute inset-0 bg-gradient-to-b from-[#3A0606]/30 via-[#7A1010]/45 to-[#2A0505]/65" />
+
+        <div className="relative z-10 flex h-full items-center justify-center px-5 text-center text-white">
+          <div className="max-w-3xl">
+            <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
+              {isAr
+                ? "الحالات الطارئة"
+                : isKu
+                ? "بارودۆخە هەرە گرنگەکان"
+                : "Urgent Cases"}
+            </h2>
+
+            <div className="mx-auto mt-5 h-[2px] w-16 bg-[#F4C430]" />
+
+            <p className="mx-auto mt-6 max-w-2xl text-sm font-normal leading-7 text-white/82 md:text-base md:leading-8">
+              {isAr
+                ? "حالات إنسانية تحتاج إلى تدخل عاجل ودعم سريع لضمان وصول المساعدة في الوقت المناسب."
+                : isKu
+                ? "بارودۆخە مرۆییە گرنگەکان پێویستیان بە هاوکاری و وەڵامدانەوەی خێرایە."
+                : "Critical humanitarian cases that require immediate support and fast response to deliver help on time."}
             </p>
 
-            <h2 className="text-3xl font-black leading-tight md:text-6xl">
-              {locale === "en"
-                ? "Urgent Cases"
-                : locale === "ku"
-                ? "کەیسە پەلەکان"
-                : "الحالات العاجلة"}
-            </h2>
-          </div>
-
-          <Link
-            href={`/${locale}/cases`}
-            className="shrink-0 rounded-full bg-white px-5 py-3 text-xs font-black text-[#35108A] shadow-xl transition hover:bg-[#FFD32A]"
-          >
-            {locale === "en" ? "View All" : locale === "ku" ? "هەموو" : "عرض الكل"}
-          </Link>
-        </div>
-
-        <div className="relative flex-1">
-          <button
-            type="button"
-            onClick={() => scrollSlider("left")}
-            className="absolute left-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-white/20 text-white backdrop-blur-xl transition hover:bg-white hover:text-[#35108A] md:left-8"
-            aria-label="Previous"
-          >
-            <ArrowLeft size={20} />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => scrollSlider("right")}
-            className="absolute right-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-white/20 text-white backdrop-blur-xl transition hover:bg-white hover:text-[#35108A] md:right-8"
-            aria-label="Next"
-          >
-            <ArrowRight size={20} />
-          </button>
-
-          <div
-            ref={sliderRef}
-            className="flex h-full snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-16 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:gap-6 md:px-24"
-          >
-            {previewCases.map((item, index) => (
-              <div
-                key={item.slug}
-                className="flex w-[72%] shrink-0 snap-center items-end sm:w-[44%] md:w-[30%] lg:w-[28%]"
-              >
-                <CaseCard item={item} locale={locale} index={index} />
-              </div>
-            ))}
+            <div className="mx-auto mt-8 flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/10 backdrop-blur transition group-hover:bg-white group-hover:text-[#3A0606]">
+              <ArrowLeft className="h-5 w-5" />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#071726]" />
+      </Link>
     </section>
   );
 }

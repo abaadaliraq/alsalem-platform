@@ -1,194 +1,127 @@
-import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "سياسة الخصوصية | منظمة السالم الخيرية",
-  description:
-    "تعرف على كيفية جمع واستخدام وحماية بيانات المستخدمين والمتبرعين في منصة منظمة السالم الخيرية.",
+type Locale = "ar" | "en" | "ku";
+
+type Props = {
+  params: Promise<{
+    locale: Locale;
+  }>;
 };
 
-export default function PrivacyPolicyPage() {
+const sections = [
+  {
+    title: "Information We Collect",
+    text: `Al Saleem Charity may collect personal information provided voluntarily by users through donation forms, contact forms, volunteer applications, or any communication submitted through the platform. This information may include full name, phone number, email address, donation details, uploaded documents, and any additional information required for communication and verification purposes.`,
+  },
+
+  {
+    title: "How Information Is Used",
+    text: `The collected information is used strictly for humanitarian and operational purposes related to the organization. This includes donation verification, communication with donors, case follow-up, financial confirmation, volunteer coordination, improving platform services, and maintaining transparency between the organization and supporters.`,
+  },
+
+  {
+    title: "Data Protection",
+    text: `Al Saleem Charity takes reasonable technical and administrative measures to protect user information from unauthorized access, misuse, disclosure, alteration, or loss. Access to sensitive information is restricted to authorized personnel directly involved in operational processes.`,
+  },
+
+  {
+    title: "Donation Verification",
+    text: `Information submitted through donation forms may be reviewed and verified by the organization team before confirming or processing contributions. In certain cases, the organization may contact donors to confirm submitted details or request additional clarification when necessary.`,
+  },
+
+  {
+    title: "Third-Party Services",
+    text: `The platform may rely on external services such as payment providers, hosting services, analytics tools, cloud storage, or communication platforms. These services may process limited technical or operational data strictly as required to maintain platform functionality.`,
+  },
+
+  {
+    title: "Cookies",
+    text: `This website may use cookies and basic tracking technologies to improve user experience, analyze platform performance, remember user preferences, and optimize website functionality. Users may disable cookies through browser settings if preferred.`,
+  },
+
+  {
+    title: "Media and Uploaded Content",
+    text: `Any files, screenshots, payment receipts, or documents uploaded by users through the platform are treated as confidential and are used only for donation confirmation, verification, and operational follow-up.`,
+  },
+
+  {
+    title: "External Links",
+    text: `The platform may contain links to external websites or third-party services. Al Saleem Charity is not responsible for the privacy practices, content, or policies of external platforms outside the organization’s official domain.`,
+  },
+
+  {
+    title: "Policy Updates",
+    text: `This Privacy Policy may be updated periodically to reflect operational improvements, legal requirements, or platform changes. Continued use of the platform after updates indicates acceptance of the revised policy.`,
+  },
+
+  {
+    title: "Contact",
+    text: `For questions related to privacy, data handling, or submitted information, users may contact Al Saleem Charity directly through the official communication channels provided on the platform.`,
+  },
+];
+
+export default async function PrivacyPolicyPage({ params }: Props) {
+  const { locale } = await params;
+
   return (
-    <main className="relative overflow-hidden bg-[#050816] text-white">
-      {/* BACKGROUND */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.18),transparent_35%),radial-gradient(circle_at_bottom,rgba(59,130,246,0.14),transparent_35%)]" />
+    <main className="min-h-screen bg-[#f7f6f2] text-[#111111]">
+      <section className="border-b border-black/5 bg-white">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-7 md:px-10">
+          <div>
+            <p className="text-[10px] font-light tracking-[0.28em] text-black/35">
+              AL SALEEM CHARITY
+            </p>
 
-      <div className="relative mx-auto max-w-5xl px-6 py-24 md:px-10">
-        {/* HEADER */}
-        <div className="mb-16">
-          <span className="mb-4 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm text-white/70 backdrop-blur">
-            Privacy Policy
-          </span>
+            <h1 className="mt-3 text-[26px] font-light tracking-[-0.03em] text-black md:text-[42px]">
+              Privacy Policy
+            </h1>
+          </div>
 
-          <h1 className="text-4xl font-black leading-tight md:text-6xl">
-            سياسة الخصوصية
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-white/70">
-            تلتزم منظمة السالم الخيرية بحماية خصوصية جميع المستخدمين
-            والمتبرعين والزوار. توضح هذه السياسة كيفية جمع البيانات
-            واستخدامها وتخزينها وحمايتها أثناء استخدام منصتنا الإلكترونية.
-          </p>
+          <Link
+            href={`/${locale}`}
+            className="flex items-center gap-2 text-[11px] font-light text-black/45 transition hover:text-black"
+          >
+            <ArrowLeft size={14} strokeWidth={1.5} />
+            Back
+          </Link>
         </div>
+      </section>
 
-        {/* CONTENT */}
-        <div className="space-y-10">
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              1- المعلومات التي نقوم بجمعها
-            </h2>
-
-            <div className="space-y-4 text-white/75 leading-8">
-              <p>
-                عند استخدام منصة منظمة السالم الخيرية، قد نقوم بجمع بعض
-                المعلومات التي يقدمها المستخدم بشكل مباشر، وتشمل:
-              </p>
-
-              <ul className="list-disc space-y-2 pr-6">
-                <li>الاسم الكامل.</li>
-                <li>رقم الهاتف.</li>
-                <li>البريد الإلكتروني.</li>
-                <li>العنوان أو المدينة.</li>
-                <li>بيانات التبرع والمبلغ.</li>
-                <li>صور إثبات التحويل أو صور التبرعات العينية.</li>
-                <li>أي معلومات إضافية يرسلها المستخدم طوعاً.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              2- كيفية استخدام المعلومات
-            </h2>
-
-            <div className="space-y-4 text-white/75 leading-8">
-              <p>
-                يتم استخدام المعلومات التي يتم جمعها للأغراض التالية فقط:
-              </p>
-
-              <ul className="list-disc space-y-2 pr-6">
-                <li>معالجة التبرعات والتأكد من وصولها.</li>
-                <li>التواصل مع المتبرعين عند الحاجة.</li>
-                <li>إدارة الحالات الإنسانية وتنظيم الدعم.</li>
-                <li>تحسين تجربة استخدام المنصة.</li>
-                <li>الحماية من عمليات الاحتيال أو الاستخدام غير المشروع.</li>
-                <li>الامتثال للمتطلبات القانونية والتنظيمية.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              3- حماية البيانات
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              نحن نتخذ إجراءات تقنية وتنظيمية مناسبة لحماية بيانات المستخدمين
-              من الوصول غير المصرح به أو التعديل أو الفقدان أو سوء الاستخدام.
-              ومع ذلك، لا يمكن ضمان أمان أي نظام إلكتروني بنسبة 100% بشكل
-              كامل.
+      <section>
+        <div className="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
+          <div className="max-w-3xl">
+            <p className="text-[12px] font-light leading-7 text-black/52 md:text-[13px]">
+              This Privacy Policy explains how Al Saleem Charity collects,
+              stores, protects, and uses information submitted through the
+              platform and related communication channels.
             </p>
-          </section>
+          </div>
 
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              4- مشاركة المعلومات
-            </h2>
+          <div className="mt-14 space-y-12">
+            {sections.map((section) => (
+              <div
+                key={section.title}
+                className="border-b border-black/6 pb-10"
+              >
+                <h2 className="text-[15px] font-normal tracking-[-0.01em] text-black md:text-[18px]">
+                  {section.title}
+                </h2>
 
-            <div className="space-y-4 text-white/75 leading-8">
-              <p>
-                لا تقوم منظمة السالم الخيرية ببيع أو تأجير بيانات المستخدمين
-                لأي جهة خارجية.
-              </p>
+                <p className="mt-4 max-w-3xl text-[12px] font-light leading-8 text-black/55 md:text-[13px]">
+                  {section.text}
+                </p>
+              </div>
+            ))}
+          </div>
 
-              <p>
-                قد تتم مشاركة بعض المعلومات فقط في الحالات الضرورية التالية:
-              </p>
-
-              <ul className="list-disc space-y-2 pr-6">
-                <li>الامتثال للقوانين أو الطلبات الرسمية.</li>
-                <li>حماية حقوق المنظمة أو المستخدمين.</li>
-                <li>
-                  مع مزودي الخدمات التقنية المرتبطين بتشغيل المنصة مثل خدمات
-                  الاستضافة أو الدفع الإلكتروني.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              5- ملفات تعريف الارتباط (Cookies)
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              قد تستخدم المنصة ملفات تعريف الارتباط لتحسين تجربة المستخدم،
-              وتذكر الإعدادات، وتحليل أداء الموقع. يمكن للمستخدم التحكم بإعدادات
-              الكوكيز من خلال المتصفح أو عبر نافذة إعدادات الكوكيز داخل الموقع.
+          <div className="mt-16 border-t border-black/6 pt-6">
+            <p className="text-[10px] font-light tracking-[0.08em] text-black/30">
+              © 2026 AL SALEEM CHARITY ORGANIZATION
             </p>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              6- روابط الجهات الخارجية
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              قد تحتوي المنصة على روابط لمواقع أو خدمات خارجية. منظمة السالم
-              الخيرية غير مسؤولة عن سياسات الخصوصية أو محتوى تلك المواقع.
-            </p>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              7- حقوق المستخدم
-            </h2>
-
-            <div className="space-y-4 text-white/75 leading-8">
-              <p>يحق للمستخدم:</p>
-
-              <ul className="list-disc space-y-2 pr-6">
-                <li>طلب الاطلاع على بياناته.</li>
-                <li>طلب تعديل أو حذف بياناته عند الإمكان.</li>
-                <li>الاعتراض على استخدام بعض البيانات.</li>
-                <li>إيقاف استقبال الرسائل أو الإشعارات.</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* SECTION */}
-          <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              8- تحديثات السياسة
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              قد تقوم منظمة السالم الخيرية بتحديث سياسة الخصوصية من وقت لآخر
-              لتتوافق مع التغييرات التقنية أو القانونية. استمرار استخدام المنصة
-              يعني الموافقة على النسخة المحدثة من السياسة.
-            </p>
-          </section>
-
-          {/* CONTACT */}
-          <section className="rounded-[32px] border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 p-8 backdrop-blur-xl">
-            <h2 className="mb-4 text-2xl font-bold">
-              التواصل معنا
-            </h2>
-
-            <p className="leading-8 text-white/75">
-              إذا كانت لديك أي استفسارات حول سياسة الخصوصية أو كيفية استخدام
-              البيانات، يمكنك التواصل مع فريق منظمة السالم الخيرية عبر صفحة
-              التواصل داخل المنصة.
-            </p>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

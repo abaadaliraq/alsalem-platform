@@ -152,6 +152,7 @@ export default function DonationForm({ locale, caseSlug, categorySlug }: Props) 
       const proofFile = form.get("proof_file") as File | null;
       const proofUrl =
         proofFile && proofFile.size > 0 ? await uploadProof(proofFile) : null;
+const selectedCaseId = selectedCase?.id || null;
 
       const payload = {
         donor_name: String(form.get("donor_name") || ""),
@@ -162,6 +163,7 @@ export default function DonationForm({ locale, caseSlug, categorySlug }: Props) 
         amount: String(form.get("amount") || ""),
         notes: String(form.get("notes") || ""),
         case_slug: caseSlug || null,
+        case_id: selectedCaseId,
         category_slug: selectedCase?.categorySlug || categorySlug || null,
         case_title: selectedCase?.title?.[locale] || null,
         case_province: selectedCase?.province?.[locale] || null,

@@ -1,417 +1,346 @@
-"use client";
-
-import { motion } from "framer-motion";
-import {
-  HeartHandshake,
-  ShieldCheck,
-  Sparkles,
-  Users,
-  ArrowLeft,
-} from "lucide-react";
 import Link from "next/link";
+import {
+  ArrowLeft,
+  HandHeart,
+  ShieldCheck,
+  UsersRound,
+  HeartHandshake,
+} from "lucide-react";
+import type { Locale } from "../../lib/locales/config";
 
-const content = {
+type Props = {
+  locale: Locale;
+};
+type PageProps = {
+  params: {
+    locale: Locale;
+  };
+};
+
+const aboutText = {
   ar: {
+    nav: {
+      home: "الرئيسية",
+      cases: "الحالات",
+      categories: "الأقسام",
+      donate: "آلية التبرع",
+      contact: "تواصل معنا",
+      about: "عن المنظمة",
+      lang: "العربية",
+    },
+    badge: "AL SALEEM CHARITY",
     heroTitle: "منظمة السالم الخيرية",
-    heroText:
+
+    donateNow: "تبرع الآن",
+    viewCases: "مشاهدة الحالات",
+
+    introLabel: "نبذة عن المنظمة",
+    introTitle: "منظمة السالم الخيرية",
+    introDesc:
       "منظمة إنسانية غير ربحية أسسها الفنان محمد السالم تخليداً لروح والده الراحل، لتكون مساحة حقيقية للعطاء الإنساني المنظم، وربط الخير بالناس الذين يحتاجونه بكرامة واحترام.",
+    introSecond:
+      "منظمة السالم الخيرية منصة إنسانية تهدف إلى تسهيل العمل الخيري وربط المتبرعين بالحالات المحتاجة بوضوح وشفافية.",
 
-    aboutTitle: "من نحن",
-    aboutText:
-      "منظمة السالم الخيرية هي مبادرة إنسانية عراقية تسعى إلى بناء نموذج أكثر وضوحاً وثقة في العمل الخيري. لا نؤمن بأن التبرع مجرد مبلغ مالي ينتهي أثره بعد الدفع، بل نؤمن أن كل مساهمة يجب أن تتحول إلى أثر حقيقي ينعكس على حياة إنسان أو عائلة كاملة.\n\nتأسست المنظمة على فكرة أن الرحمة يمكن أن تكون منظمة، وأن الخير لا يحتاج إلى ضجيج بقدر ما يحتاج إلى صدق وشفافية واحترام للإنسان. لذلك نعمل على دعم الحالات الإنسانية المختلفة بطريقة تحفظ كرامة المستفيد، وتمنح المتبرع الثقة بأن دعمه يصل بالشكل الصحيح.\n\nنحن نطمح إلى خلق مساحة يشعر فيها الناس أن العمل الخيري ليس واجباً ثقيلاً، بل فرصة حقيقية لصناعة فرق ملموس داخل المجتمع.",
-
-    missionTitle: "رسالتنا",
-    missionText:
-      "رسالتنا أن نعيد بناء الثقة بين الإنسان والعمل الخيري. نريد أن يشعر المتبرع أن مساهمته تذهب إلى مكان واضح ومفهوم، وأن يرى أثر دعمه بشكل حقيقي، بعيداً عن العشوائية أو الاستغلال.\n\nنؤمن أن الإنسان المحتاج لا يجب أن يتحول إلى صورة مؤلمة من أجل الحصول على المساعدة، بل يجب أن يُعامل بكرامة واحترام كاملين. لذلك تعتمد المنظمة على توثيق منظم، ودعم إنساني مدروس، وآلية واضحة لمتابعة الحالات والتأكد من وصول المساعدة بالشكل الصحيح.\n\nهدفنا ليس جمع التبرعات فقط، بل بناء ثقافة إنسانية أعمق داخل المجتمع.",
-
-    visionTitle: "رؤيتنا",
-    visionText:
-      "نسعى لأن تصبح منظمة السالم نموذجاً عراقياً حديثاً في العمل الإنساني، يعتمد على الشفافية والتنظيم والثقة. نريد أن نخلق منصة يشعر فيها الناس بالأمان عند التبرع، ويشعر فيها المحتاج بالاحترام وليس بالشفقة.\n\nرؤيتنا أن يتحول الخير من مبادرات فردية متفرقة إلى منظومة إنسانية متكاملة، تستخدم الإعلام، والتوثيق، والتكنولوجيا، للوصول إلى أكبر عدد ممكن من الحالات المحتاجة بطريقة أكثر كفاءة وتأثيراً.\n\nكما نطمح إلى أن تكون المنظمة مساحة تلهم الناس للعودة إلى قيمة الرحمة والتكافل الحقيقي داخل المجتمع.",
-
-    goals: [
-      "دعم الحالات الإنسانية العاجلة.",
-      "مساعدة الأيتام والعوائل المتعففة.",
-      "توفير دعم غذائي وصحي وتعليمي.",
-      "بناء علاقة ثقة حقيقية مع المتبرعين.",
-      "الحفاظ على كرامة المستفيد في جميع مراحل الدعم.",
-      "استخدام التوثيق والإعلام لإظهار أثر المساعدة بشكل إنساني.",
-    ],
-
+    valuesTitle: "نؤمن في منظمة السالم الخيرية بـ",
     values: [
       {
-        title: "الكرامة",
-        text: "نساعد الإنسان بدون استغلال صورته أو تحويل معاناته إلى وسيلة دعائية.",
-        icon: <HeartHandshake size={24} />,
+        title: "العطاء بكرامة",
+        desc: "نحرص أن تصل المساعدة بطريقة تحفظ كرامة الإنسان.",
+        icon: HandHeart,
       },
       {
-        title: "الشفافية",
-        text: "كل حالة يتم التعامل معها بطريقة واضحة وقابلة للمتابعة.",
-        icon: <ShieldCheck size={24} />,
+        title: "وضوح وثقة",
+        desc: "نعرض الحالات بصورة واضحة ومنظمة قدر الإمكان.",
+        icon: ShieldCheck,
       },
       {
-        title: "المجتمع",
-        text: "نؤمن أن الخير يصبح أقوى عندما يتحول إلى ثقافة عامة داخل المجتمع.",
-        icon: <Users size={24} />,
+        title: "ربط الخير بالناس",
+        desc: "نقرب المسافة بين المتبرعين والحالات المحتاجة.",
+        icon: UsersRound,
       },
       {
-        title: "الأثر",
-        text: "هدفنا أن يترك كل دعم أثراً حقيقياً ومستداماً في حياة الناس.",
-        icon: <Sparkles size={24} />,
+        title: "أثر حقيقي",
+        desc: "هدفنا أن يتحول التبرع إلى نتيجة إنسانية ملموسة.",
+        icon: HeartHandshake,
       },
     ],
+
+    ctaTitle: "ساهم في إيصال المساعدة لمن يحتاجها فعلاً",
+    ctaDesc: "كل تبرع صغير قد يكون بداية فرق كبير في حياة إنسان.",
   },
 
   en: {
+    nav: {
+      home: "Home",
+      cases: "Cases",
+      categories: "Categories",
+      donate: "Donation Process",
+      contact: "Contact Us",
+      about: "About",
+      lang: "English",
+    },
+    badge: "AL SALEEM CHARITY",
     heroTitle: "Al Saleem Charity Organization",
-    heroText:
-      "A non-profit humanitarian organization founded by artist Mohammed Al Saleem in memory of his late father, dedicated to creating meaningful and transparent humanitarian impact.",
+    heroDesc:
+      "A non-profit humanitarian organization founded by artist Mohammed Al Saleem in memory of his late father, created as a real space for organized humanitarian giving and connecting kindness with people who need it with dignity and respect.",
+    donateNow: "Donate Now",
+    viewCases: "View Cases",
 
-    aboutTitle: "Who We Are",
-    aboutText:
-      "Al Saleem Charity is an Iraqi humanitarian initiative focused on building a more trustworthy and transparent model for charitable work.\n\nWe believe that donations should not disappear without impact. Every contribution should become real change in the life of a person or a family.\n\nThe organization was founded on the belief that compassion can be organized, and that dignity should always remain at the center of humanitarian work.",
+    introLabel: "About the organization",
+    introTitle: "Al Saleem Charity Organization",
+    introDesc:
+      "A non-profit humanitarian organization founded by artist Mohammed Al Saleem in memory of his late father, created as a real space for organized humanitarian giving and connecting kindness with people who need it with dignity and respect.",
+    introSecond:
+      "Al Saleem Charity is a humanitarian platform that aims to facilitate charitable work and connect donors with people in need clearly and transparently.",
 
-    missionTitle: "Our Mission",
-    missionText:
-      "Our mission is to rebuild trust between people and charitable work.\n\nWe aim to create a system where donors clearly understand how their support changes lives, while ensuring that beneficiaries are treated with dignity and respect.\n\nWe focus on transparency, organized humanitarian support, and long-term social impact rather than temporary emotional campaigns.",
-
-    visionTitle: "Our Vision",
-    visionText:
-      "We aspire to become a modern Iraqi humanitarian organization built on transparency, trust, and meaningful impact.\n\nOur vision is to transform charitable work into a sustainable culture supported by media, storytelling, and technology, while protecting the dignity of every beneficiary.",
-
-    goals: [
-      "Support urgent humanitarian cases.",
-      "Assist orphaned and vulnerable families.",
-      "Provide food, medical, and educational aid.",
-      "Build trust with donors and communities.",
-      "Protect the dignity of beneficiaries.",
-      "Show real humanitarian impact through ethical storytelling.",
-    ],
-
+    valuesTitle: "At Al Saleem Charity, we believe in",
     values: [
       {
-        title: "Dignity",
-        text: "Helping people without exploiting their suffering.",
-        icon: <HeartHandshake size={24} />,
+        title: "Giving with dignity",
+        desc: "We make sure support reaches people in a way that protects human dignity.",
+        icon: HandHeart,
       },
       {
-        title: "Transparency",
-        text: "Clear and organized support processes.",
-        icon: <ShieldCheck size={24} />,
+        title: "Clarity and trust",
+        desc: "We present cases as clearly and responsibly as possible.",
+        icon: ShieldCheck,
       },
       {
-        title: "Community",
-        text: "Creating a culture of compassion and solidarity.",
-        icon: <Users size={24} />,
+        title: "Connecting kindness",
+        desc: "We bring donors closer to people who need real support.",
+        icon: UsersRound,
       },
       {
-        title: "Impact",
-        text: "Every contribution should create meaningful change.",
-        icon: <Sparkles size={24} />,
+        title: "Real impact",
+        desc: "Our goal is to turn donations into a tangible humanitarian result.",
+        icon: HeartHandshake,
       },
     ],
+
+    ctaTitle: "Help deliver support to those who truly need it",
+    ctaDesc: "Every small donation can be the beginning of a big difference in someone’s life.",
   },
 
   ku: {
-    heroTitle: "ڕێکخراوی خێرخوازی سەلام",
-    heroText:
-      "ڕێکخراوێکی مرۆیی ناحکومی دامەزراوە لەلایەن هونەرمەند محەمەد السەلام بۆ یادی باوکی کۆچی دوایی کردوو.",
+    nav: {
+      home: "سەرەکی",
+      cases: "حاڵەتەکان",
+      categories: "بەشەکان",
+      donate: "شێوازی بەخشین",
+      contact: "پەیوەندی",
+      about: "دەربارەی ڕێکخراو",
+      lang: "کوردی",
+    },
+    badge: "AL SALEEM CHARITY",
+    heroTitle: "ڕێکخراوی خێرخوازی سالم",
+    heroDesc:
+      "ڕێکخراوێکی مرۆیی قازانج نەویستە، دامەزراوە بۆ یارمەتیدانی ئەوانەی پێویستیان بە پاڵپشتی هەیە بە ڕێز و کەرامەت.",
+    donateNow: "بەخشین",
+    viewCases: "بینینی حاڵەتەکان",
 
-    aboutTitle: "دەربارەی ئێمە",
-    aboutText:
-      "ڕێکخراوی سەلام هەوڵدەدات متمانە و ڕوونی زیاتر بۆ کاری خێرخوازی دروست بکات.\n\nباوەڕمان وایە یارمەتی تەنها پارە نییە، بەڵکو کاریگەرییەکی ڕاستەقینە لە ژیانی خەڵک.",
+    introLabel: "دەربارەی ڕێکخراو",
+    introTitle: "ڕێکخراوی خێرخوازی سالم",
+    introDesc:
+      "ڕێکخراوێکی مرۆیی قازانج نەویستە، دامەزراوە بۆ یارمەتیدانی ئەوانەی پێویستیان بە پاڵپشتی هەیە بە ڕێز و کەرامەت.",
+    introSecond:
+      "پلاتفۆرمێکی مرۆییە بۆ ئاسانکردنی کاری خێرخوازی و پەیوەندیکردنی بەخشەران بە حاڵەتە پێویستەکان بە ڕوونی و شەفافیەت.",
 
-    missionTitle: "پەیامەکەمان",
-    missionText:
-      "پەیامەکەمان دروستکردنی متمانەی نوێیە لەنێوان خەڵک و کاری خێرخوازی.\n\nدەمانەوێت پشتگیری بە شێوەیەکی ڕێکخراو و بەڕێز بگات بە پێویستەکان.",
-
-    visionTitle: "بینینمان",
-    visionText:
-      "ئامانجمان ئەوەیە ببین بە نموونەیەکی نوێی کاری مرۆیی لە عێراق، پشت بە شەفافیەت و کاریگەری ببەستێت.",
-
-    goals: [
-      "یارمەتیدانی دۆخە مرۆییە خێراکان.",
-      "پشتیوانی لە هەتیوان و خێزانە هەژارەکان.",
-      "دابینکردنی یارمەتی تەندروستی و خواردن.",
-      "پاراستنی کرامەتی سوودمەند.",
-    ],
-
+    valuesTitle: "لە ڕێکخراوی سالم باوەڕمان بەمانە هەیە",
     values: [
       {
-        title: "کرامەت",
-        text: "یارمەتیدانی خەڵک بە ڕێزەوە.",
-        icon: <HeartHandshake size={24} />,
+        title: "بەخشین بە کەرامەت",
+        desc: "یارمەتی دەگەیەنین بە شێوەیەک کە کەرامەتی مرۆڤ بپارێزێت.",
+        icon: HandHeart,
       },
       {
-        title: "شەفافیەت",
-        text: "کارکردنی ڕوون و ڕێکخراو.",
-        icon: <ShieldCheck size={24} />,
+        title: "ڕوونی و متمانە",
+        desc: "حاڵەتەکان بە ڕوونی و بە شێوەیەکی ڕێکخراو پیشان دەدەین.",
+        icon: ShieldCheck,
       },
       {
-        title: "کۆمەڵگا",
-        text: "دروستکردنی ڕۆحی هاوکاری.",
-        icon: <Users size={24} />,
+        title: "پەیوەندی خێر بە خەڵک",
+        desc: "نێوان بەخشەران و حاڵەتە پێویستەکان نزیک دەکەینەوە.",
+        icon: UsersRound,
       },
       {
-        title: "کاریگەری",
-        text: "هەر پشتگیرییەک دەبێت کاریگەری هەبێت.",
-        icon: <Sparkles size={24} />,
+        title: "کاریگەری ڕاستەقینە",
+        desc: "ئامانجمان ئەوەیە بەخشین ببێتە ئەنجامێکی مرۆیی ملموس.",
+        icon: HeartHandshake,
       },
     ],
+
+    ctaTitle: "یارمەتی بگەیەنە ئەوانەی بەڕاستی پێویستیان پێیە",
+    ctaDesc: "هەر بەخشینێکی بچووک دەتوانێت دەستپێکی گۆڕانکارییەکی گەورە بێت.",
   },
 };
 
-export default function AboutStoryPage({
-  locale = "ar",
-}: {
-  locale?: "ar" | "en" | "ku";
-}) {
-  const t = content[locale];
+export default function AboutStoryPage({ locale }: Props) {
+  const t = aboutText[locale] ?? aboutText.ar;
+  const isRtl = locale === "ar" || locale === "ku";
 
   return (
-    <main className="overflow-hidden bg-[#071726] text-white">
+    <main
+      dir={isRtl ? "rtl" : "ltr"}
+      className="min-h-screen bg-white text-[#10233f]"
+    >
       {/* HERO */}
-      <section className="relative h-[65vh] w-full overflow-hidden">
+      <section className="relative min-h-[540px] overflow-hidden bg-[#071d35] md:min-h-[610px]">
         <img
-          src="/about-main.jpg"
-          alt=""
+       src="/about-main.jpg"
+          alt="Al Saleem Charity"
           className="absolute inset-0 h-full w-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-[#071726]/75" />
+        <div className="absolute inset-0 bg-[#061b34]/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#061b34]/95 via-[#061b34]/70 to-[#061b34]/10 rtl:bg-gradient-to-l" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#061b34] to-transparent" />
 
-        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-6 pb-16 md:px-10">
-          <div className="max-w-3xl">
-            <span className="mb-5 inline-block rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm backdrop-blur">
-              AL SALEEM CHARITY
-            </span>
+       
 
-            <h1 className="mb-6 text-5xl font-black leading-tight md:text-7xl">
+        <div className="relative z-10 mx-auto flex max-w-7xl items-center px-5 pb-24 pt-20 sm:px-8 md:pt-28 lg:px-10">
+          <div className="max-w-[560px]">
+            <p className="mb-5 text-[11px] font-medium tracking-[0.28em] text-white/65">
+              {t.badge}
+            </p>
+
+            <h1 className="max-w-xl text-[34px] font-normal leading-[1.35] tracking-[-0.02em] text-white sm:text-[42px] md:text-[50px]">
               {t.heroTitle}
             </h1>
 
-            <p className="max-w-2xl text-lg leading-9 text-white/80 md:text-xl">
-              {t.heroText}
+            <p className="mt-6 max-w-[520px] text-[15px] font-normal leading-8 text-white/78 md:text-[16px]">
+          
             </p>
+
+            <div className="mt-9 flex flex-wrap gap-4">
+              <Link
+                href={`/${locale}/donate`}
+                className="rounded-xl bg-[#f8c542] px-7 py-3 text-[14px] font-normal text-[#10233f] transition hover:bg-[#ffd35a]"
+              >
+                {t.donateNow}
+              </Link>
+
+              <Link
+                href={`/${locale}/cases`}
+                className="rounded-xl border border-white/30 bg-white/5 px-7 py-3 text-[14px] font-normal text-white/90 backdrop-blur transition hover:bg-white/10"
+              >
+                {t.viewCases}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ABOUT */}
-      <section className="relative px-6 py-20 md:px-10">
-        <div className="absolute inset-0 opacity-10">
-          <img
-            src="/about-main.jpg"
-            alt=""
-            className="h-full w-full object-cover"
-          />
-        </div>
+      {/* INTRO */}
+     <section className="bg-white py-16 md:py-24">
+        <div className="grid items-center md:grid-cols-2">
+          <div className="relative h-[320px] overflow-hidden md:h-[540px]">
+  <img
+    src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=1800&auto=format&fit=crop"
+    alt="Charity"
+    className="h-full w-full object-cover"
+  />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-14 md:grid-cols-2 md:items-center">
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <img
-              src="/about-main.jpg"
-              alt=""
-              className="h-[520px] w-full rounded-[36px] object-cover shadow-2xl"
-            />
-          </motion.div>
+  <div className="absolute inset-0 bg-gradient-to-t from-[#071d35]/30 to-transparent" />
+</div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="mb-4 inline-block text-sm font-bold tracking-[0.3em] text-[#8B5CF6]">
-              AL SALEEM CHARITY
-            </span>
+         <div className="mx-auto max-w-[560px] px-5 pt-10 text-center md:px-14 md:text-start">
+            <p className="text-[14px] font-normal text-[#4385e8]">
+              {t.introLabel}
+            </p>
 
-            <h2 className="mb-8 text-4xl font-black md:text-6xl">
-              {t.aboutTitle}
+            <h2 className="mt-5 text-[30px] font-normal leading-[1.4] tracking-[-0.01em] text-[#10233f] sm:text-[36px] md:text-[40px]">
+              {t.introTitle}
             </h2>
 
-            <p className="whitespace-pre-line text-lg leading-10 text-white/75">
-              {t.aboutText}
+            <p className="mt-6 text-[15px] font-normal leading-8 text-[#526179]">
+              {t.introDesc}
             </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* MISSION */}
-      <section className="bg-white px-6 py-20 text-[#071726] md:px-10">
-        <div className="mx-auto grid max-w-7xl gap-14 md:grid-cols-2">
-          <div>
-            <span className="mb-4 inline-block text-sm font-bold tracking-[0.3em] text-[#8B5CF6]">
-              OUR MISSION
-            </span>
+            <div className="mx-auto my-8 h-px w-16 bg-[#4385e8]/50 md:mx-0" />
 
-            <h2 className="mb-8 text-4xl font-black md:text-6xl">
-              {t.missionTitle}
-            </h2>
-
-            <p className="whitespace-pre-line text-lg leading-10 text-black/70">
-              {t.missionText}
+            <p className="text-[15px] font-normal leading-8 text-[#66758a]">
+              {t.introSecond}
             </p>
           </div>
-
-          <div>
-            <img
-              src="/about-main.jpg"
-              alt=""
-              className="h-[560px] w-full rounded-[36px] object-cover"
-            />
-          </div>
         </div>
       </section>
-
-      {/* VISION */}
-      <section className="relative overflow-hidden px-6 py-20 md:px-10">
-        <div className="absolute inset-0 opacity-15">
-          <img
-            src="/about-main.jpg"
-            alt=""
-            className="h-full w-full object-cover"
-          />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-5xl rounded-[40px] border border-white/10 bg-[#0B2238]/90 p-10 backdrop-blur">
-          <span className="mb-4 inline-block text-sm font-bold tracking-[0.3em] text-[#FFD32A]">
-            OUR VISION
-          </span>
-
-          <h2 className="mb-8 text-4xl font-black md:text-6xl">
-            {t.visionTitle}
-          </h2>
-
-          <p className="whitespace-pre-line text-lg leading-10 text-white/75">
-            {t.visionText}
-          </p>
-        </div>
-      </section>
-
-     {/* GOALS */}
-<section className="bg-white px-4 py-10 text-[#071726] md:px-10 md:py-20">
-  <div className="mx-auto max-w-7xl">
-    <div className="mb-8 text-right md:mb-12">
-      <span className="mb-3 inline-block text-[11px] font-bold tracking-[0.25em] text-[#5B2BD8] md:text-sm">
-        AL SALEEM GOALS
-      </span>
-
-      <h2 className="text-3xl font-black leading-tight md:text-6xl">
-        أهداف المنظمة
-      </h2>
-    </div>
-
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
-      {t.goals.map((goal, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: index * 0.04 }}
-          viewport={{ once: true }}
-          className="rounded-[22px] border border-black/5 bg-[#F5F7FA] p-4 shadow-sm md:rounded-[28px] md:p-6"
-        >
-          <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-full bg-[#FFD32A] text-sm font-black text-[#071726] md:h-11 md:w-11">
-            {index + 1}
-          </div>
-
-          <p className="text-right text-[13px] font-bold leading-6 text-[#071726]/80 md:text-base md:leading-8">
-            {goal}
-          </p>
-        </motion.div>
-      ))}
-    </div>
-
-    <div className="mt-6 overflow-hidden rounded-[26px] md:mt-10 md:rounded-[36px]">
-      <img
-        src="/about-main.jpg"
-        alt="Al Saleem Charity Goals"
-        className="h-[180px] w-full object-cover md:h-[420px]"
-      />
-    </div>
-  </div>
-</section>
 
       {/* VALUES */}
-<section className="px-4 py-10 md:px-10 md:py-20">
-  <div className="mx-auto max-w-7xl">
-    <div className="mb-8 md:mb-14">
-      <span className="mb-3 inline-block text-[11px] font-bold tracking-[0.25em] text-[#8B5CF6] md:text-sm">
-        OUR VALUES
-      </span>
-
-      <h2 className="text-3xl font-black leading-tight md:text-6xl">
-        ما الذي نؤمن به؟
-      </h2>
-    </div>
-
-    {/* MOBILE = 2 CARDS */}
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-6">
-      {t.values.map((item, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: index * 0.05 }}
-          className="
-            rounded-[24px]
-            border border-white/10
-            bg-[#0B1E31]
-            p-4
-            md:rounded-[32px]
-            md:p-8
-          "
-        >
-          {/* ICON */}
-          <div
-            className="
-              mb-4
-              flex h-11 w-11
-              items-center justify-center
-              rounded-2xl
-              bg-white/5
-              text-[#FFD32A]
-              md:mb-6
-              md:h-14 md:w-14
-            "
-          >
-            {item.icon}
+      <section className="bg-white px-5 pb-20 sm:px-8 md:pb-24 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex items-center justify-center gap-4">
+            <span className="hidden h-px w-16 bg-[#d8e6f7] sm:block" />
+            <h2 className="text-center text-[20px] font-normal text-[#4385e8] md:text-[22px]">
+              {t.valuesTitle}
+            </h2>
+            <span className="hidden h-px w-16 bg-[#d8e6f7] sm:block" />
           </div>
 
-          {/* TITLE */}
-          <h3
-            className="
-              mb-2
-              text-lg
-              font-black
-              leading-tight
-              md:mb-4
-              md:text-2xl
-            "
-          >
-            {item.title}
-          </h3>
+         <div className="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-4">
+            {t.values.map((item) => {
+              const Icon = item.icon;
 
-          {/* TEXT */}
-          <p
-            className="
-              text-[13px]
-              leading-6
-              text-white/70
-              md:text-base
-              md:leading-8
-            "
-          >
-            {item.text}
-          </p>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-[18px] border border-[#dbe7f5] bg-white px-4 py-5 text-center shadow-[0_12px_40px_rgba(8,31,61,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(8,31,61,0.08)]"
+                >
+                  <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#eaf3ff] text-[#2468c9]">
+                    <Icon size={27} strokeWidth={1.6} />
+                  </div>
+
+                  <h3 className="text-[15px] md:text-[18px]">
+                    {item.title}
+                  </h3>
+
+                  <p className="mx-auto mt-4 max-w-[210px] text-[12px] md:text-[14px] font-normal leading-7 text-[#6b7b91]">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-white px-5 pb-24 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[24px] bg-[#eef5ff]">
+          <div className="grid items-center gap-8 px-6 py-8 md:grid-cols-[180px_1fr_auto] md:px-9 md:py-10">
+            <div className="overflow-hidden rounded-[18px]">
+              <img
+                src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=900&auto=format&fit=crop"
+                alt="Donate"
+                className="h-[120px] w-full object-cover md:h-[120px]"
+              />
+            </div>
+
+            <div className="text-center md:text-start">
+              <h2 className="text-[24px] font-normal leading-[1.5] text-[#10233f] md:text-[28px]">
+                {t.ctaTitle}
+              </h2>
+              <p className="mt-3 text-[15px] font-normal leading-7 text-[#66758a]">
+                {t.ctaDesc}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-center gap-5">
+              <Link
+                href={`/${locale}/donate`}
+                className="rounded-xl bg-[#f8c542] px-7 py-3 text-[14px] font-normal text-[#10233f] transition hover:bg-[#ffd35a]"
+              >
+                {t.donateNow}
+              </Link>
+
+              <ArrowLeft
+                size={20}
+                strokeWidth={1.5}
+                className="text-[#10233f]"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

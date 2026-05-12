@@ -35,3 +35,32 @@ body {
 html[lang="en"] body {
   font-family: var(--font-en), sans-serif;
 }
+html {
+  font-weight: 400;
+}
+
+body {
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+p {
+  font-weight: 400;
+}
+
+button {
+  font-weight: 500;
+}

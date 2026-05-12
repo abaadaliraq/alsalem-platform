@@ -8,210 +8,165 @@ import {
   Home,
   Users,
 } from "lucide-react";
-
 import type { Locale } from "../../../../lib/locales/config";
 
 const categories = [
   {
     slug: "education",
-    title: {
-      ar: "التعليم",
-      en: "Education",
-      ku: "پەروەردە",
-    },
+    title: { ar: "التعليم", en: "Education", ku: "پەروەردە" },
     desc: {
       ar: "دعم الطلاب، الحقائب المدرسية، القرطاسية، والمنح التعليمية.",
       en: "Supporting students, school bags, supplies, and education aid.",
       ku: "پشتیوانی خوێندکاران و پێداویستی خوێندن.",
     },
     icon: GraduationCap,
-    image:
-      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop",
   },
-
   {
     slug: "health",
-    title: {
-      ar: "الصحة",
-      en: "Health",
-      ku: "تەندروستی",
-    },
+    title: { ar: "الصحة", en: "Health", ku: "تەندروستی" },
     desc: {
       ar: "مساعدة الحالات المرضية، العلاج، الأدوية، والعمليات الطارئة.",
       en: "Medical cases, treatments, medicine, and urgent operations.",
       ku: "یارمەتی نەخۆشان و چارەسەری پزیشکی.",
     },
     icon: HeartPulse,
-    image:
-      "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop",
   },
-
   {
     slug: "clothes",
-    title: {
-      ar: "الكسوة",
-      en: "Clothing",
-      ku: "جلوبەرگ",
-    },
+    title: { ar: "الكسوة", en: "Clothing", ku: "جلوبەرگ" },
     desc: {
       ar: "توفير الملابس والاحتياجات الأساسية للعوائل المتعففة.",
       en: "Providing clothing and basic needs for families.",
       ku: "دابینکردنی جلوبەرگ و پێداویستی بنەڕەتی.",
     },
     icon: Shirt,
-    image:
-      "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1200&auto=format&fit=crop",
   },
-
   {
     slug: "food",
-    title: {
-      ar: "الغذاء",
-      en: "Food",
-      ku: "خواردن",
-    },
+    title: { ar: "الغذاء", en: "Food", ku: "خواردن" },
     desc: {
       ar: "سلات غذائية ومساعدات معيشية للعوائل المحتاجة.",
       en: "Food baskets and living support for families in need.",
       ku: "سەبەتەی خواردن و یارمەتی ژیان.",
     },
     icon: Utensils,
-    image:
-      "https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=1200&auto=format&fit=crop",
   },
-
   {
     slug: "housing",
-    title: {
-      ar: "السكن",
-      en: "Housing",
-      ku: "نیشتەجێبوون",
-    },
+    title: { ar: "السكن", en: "Housing", ku: "نیشتەجێبوون" },
     desc: {
       ar: "ترميم المنازل وتوفير احتياجات السكن الأساسية.",
       en: "Home repairs and housing support.",
       ku: "چاککردنەوەی ماڵ و پشتیوانی نیشتەجێبوون.",
     },
     icon: Home,
-    image:
-      "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop",
   },
-
   {
     slug: "orphans",
-    title: {
-      ar: "الأيتام",
-      en: "Orphans",
-      ku: "هەتیوان",
-    },
+    title: { ar: "الأيتام", en: "Orphans", ku: "هەتیوان" },
     desc: {
       ar: "رعاية ودعم الأيتام تعليمياً ومعيشياً وإنسانياً.",
       en: "Supporting orphans with education and daily needs.",
       ku: "پشتیوانی هەتیوان لە خوێندن و ژیان.",
     },
     icon: Users,
-    image:
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
 type Props = {
-  params: Promise<{
-    locale: Locale;
-  }>;
+  params: Promise<{ locale: Locale }>;
 };
 
-export default async function CategoriesPage({
-  params,
-}: Props) {
-  const { locale } = await params;
+const text = {
+  ar: {
+    label: "أقسام التبرع",
+    title: "اختر مجال التبرع المناسب",
+    desc: "كل قسم يمثل باباً واضحاً للمساعدة. اختر المجال الذي تريد دعمه وشاهد الحالات المرتبطة به.",
+    back: "العودة للرئيسية",
+    view: "عرض القسم",
+  },
+  en: {
+    label: "Donation Categories",
+    title: "Choose a donation category",
+    desc: "Choose the field you want to support and explore related cases.",
+    back: "Back Home",
+    view: "View Category",
+  },
+  ku: {
+    label: "بەشەکانی بەخشین",
+    title: "بەشی گونجاو هەڵبژێرە",
+    desc: "ئەو بەشە هەڵبژێرە کە دەتەوێت پشتیوانی بکەیت.",
+    back: "گەڕانەوە",
+    view: "بینینی بەش",
+  },
+};
 
-  const currentLocale = locale as Locale;
-  const isAr = currentLocale === "ar";
+export default async function CategoriesPage({ params }: Props) {
+  const { locale } = await params;
+  const t = text[locale] ?? text.ar;
+  const isRtl = locale === "ar" || locale === "ku";
 
   return (
-    <main className="min-h-screen bg-[#F5F1E8] text-[#071726]">
-      <section className="relative overflow-hidden px-5 pb-20 pt-32 md:px-10 md:pt-40">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(123,190,64,0.15),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(91,43,216,0.12),transparent_35%)]" />
+    <main dir={isRtl ? "rtl" : "ltr"} className="min-h-screen bg-white text-[#082217]">
+      <section className="relative overflow-hidden bg-[#f7fbf8] px-5 pb-16 pt-32 md:px-10 md:pb-24 md:pt-40">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(25,135,84,0.16),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(25,135,84,0.08),transparent_30%)]" />
 
         <div className="relative mx-auto max-w-7xl">
-          {/* HEADER */}
-          <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.35em] text-[#5B2BD8]">
-                Donation Categories
+          <div className="mb-10 flex flex-col gap-5 md:mb-14 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="mb-4 text-[12px] font-normal tracking-[0.28em] text-[#1c8b5a]">
+                {t.label}
               </p>
 
-              <h1 className="max-w-3xl text-5xl font-black leading-[0.95] md:text-7xl">
-                {isAr
-                  ? "اختر مجال التبرع المناسب"
-                  : "Choose a Donation Category"}
+              <h1 className="text-[34px] font-normal leading-[1.35] tracking-[-0.02em] text-[#082217] md:text-[52px]">
+                {t.title}
               </h1>
 
-              <p className="mt-6 max-w-2xl text-base leading-8 text-black/55 md:text-lg">
-                {isAr
-                  ? "كل قسم يمثل باباً واضحاً للمساعدة. اختر المجال الذي تريد دعمه وشاهد الحالات المرتبطة به."
-                  : "Choose the category you want to support and explore related cases."}
+              <p className="mt-5 max-w-2xl text-[15px] font-normal leading-8 text-[#5d7068] md:text-[16px]">
+                {t.desc}
               </p>
             </div>
 
             <Link
-              href={`/${currentLocale}`}
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black shadow-sm transition hover:bg-[#071726] hover:text-white"
+              href={`/${locale}`}
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-[#d8eadf] bg-white px-5 py-3 text-[13px] font-normal text-[#1c6b49] shadow-sm transition hover:bg-[#eaf7ef]"
             >
-              <ArrowLeft className="h-4 w-4" />
-
-              {isAr ? "العودة للرئيسية" : "Back Home"}
+              <ArrowLeft size={15} strokeWidth={1.6} />
+              {t.back}
             </Link>
           </div>
 
-          {/* GRID */}
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-3">
             {categories.map((cat, index) => {
               const Icon = cat.icon;
 
               return (
                 <Link
                   key={cat.slug}
-                  href={`/${currentLocale}/categories/${cat.slug}`}
-                  className="group overflow-hidden rounded-[32px] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                  href={`/${locale}/categories/${cat.slug}`}
+                  className="group border border-[#dcefe4] bg-white p-4 transition duration-300 hover:-translate-y-1 hover:border-[#1c8b5a]/40 hover:bg-[#f7fbf8] md:p-7"
                 >
-                  {/* IMAGE */}
-                  <div className="relative h-[230px] overflow-hidden">
-                    <img
-                      src={cat.image}
-                      alt={cat.title[currentLocale]}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-                    />
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
-
-                    <div className="absolute end-5 top-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/90 text-[#071726] backdrop-blur">
-                      <Icon className="h-6 w-6" />
+                  <div className="mb-5 flex items-center justify-between gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eaf7ef] text-[#1c8b5a] md:h-14 md:w-14">
+                      <Icon size={22} strokeWidth={1.6} />
                     </div>
 
-                    <div className="absolute bottom-5 start-5">
-                      <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-black text-white backdrop-blur">
-                        0{index + 1}
-                      </span>
-                    </div>
+                    <span className="text-[12px] font-normal text-[#9ab2a5]">
+                      0{index + 1}
+                    </span>
                   </div>
 
-                  {/* CONTENT */}
-                  <div className="p-6">
-                    <h2 className="text-3xl font-black">
-                      {cat.title[currentLocale]}
-                    </h2>
+                  <h2 className="text-[20px] font-normal text-[#082217] md:text-[26px]">
+                    {cat.title[locale]}
+                  </h2>
 
-                    <p className="mt-3 min-h-[56px] text-sm leading-7 text-black/55">
-                      {cat.desc[currentLocale]}
-                    </p>
+                  <p className="mt-3 min-h-[70px] text-[12px] font-normal leading-6 text-[#687b72] md:text-[14px] md:leading-7">
+                    {cat.desc[locale]}
+                  </p>
 
-                    <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#071726] px-5 py-3 text-sm font-black text-white transition group-hover:bg-[#5B2BD8]">
-                      {isAr ? "عرض القسم" : "View Category"}
-
-                      <ArrowLeft className="h-4 w-4" />
-                    </div>
+                  <div className="mt-5 inline-flex items-center gap-2 text-[13px] font-normal text-[#1c8b5a]">
+                    {t.view}
+                    <ArrowLeft size={14} strokeWidth={1.6} />
                   </div>
                 </Link>
               );
